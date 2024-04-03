@@ -4,11 +4,16 @@ export default function Title(){
     return(
         <div className="title-box">
             <div className="title">
-                <h1>Exam Assistant</h1>
+                <h1>Stuck on generating exam Q&As?</h1>
                 <span>
-                    brief description dnwkend jdwnd wkndjen djwkedwe
+                    Intelli-Exam uses LLMs to generate user-specific exam Q&As
                 </span>
-            </div>
+
+                <div className="credits" href= "https://www.pexels.com/photo/a-person-marking-a-test-paper-6684373/">
+                    <img src="images/circle.svg"/>
+                    <span>Andy Barbour, Pexels</span>
+                </div>
+            </div>            
         </div>
         
     )

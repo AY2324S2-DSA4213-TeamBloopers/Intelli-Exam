@@ -2,44 +2,109 @@ body {
     font-family: Inter;
     font-weight: 400;
     font-size: 18px;
-    background-color: rgb(101, 174, 199);
+    background-color: #c1cdf2d3;
     
     text-align: center;
 }
 
+/*
+    Primary: Deep Sky Blue
+    --primary-100: #F2F5FF;
+    --primary-200: #BBCCFF;
+    --primary-300: #84A8FD;
+    --primary-400: #4C8AF9;
+    --primary-500: #1670F0;
+    --primary-600: #075EBD;
+    --primary-700: #024B8B;
+    --primary-800: #003459;
+    --primary-900: #001926;
+
+
+    
+    --primary-100: #F2F5FF;
+    --primary-200: #C4D6FE;
+    --primary-300: #93B9FA;
+    --primary-400: #619CED;
+    --primary-500: #317FD4;
+    --primary-600: #1364A8;
+    --primary-700: #074E7D;
+    --primary-800: #033752;
+    --primary-900: #011C26;
+*/
+
+.start{
+    width: 400px;
+    height: 120px;
+    border: none;
+    border-radius: 100px;
+    font-size: 40px;
+
+    background-color: #4065dfcd;
+    color: white;    
+}
+
+/* Header */
+
 .header{
     display: flex;
     align-items: center;
-    margin: 20px 10px 25px 10px;
+    margin: 20px 15px 25px 15px;
     padding: 10px;
-    background-color: rgba(233, 229, 229, 0.8);
+    background-color: #4a8be0a7;
     border-radius: 10px;
-    
+    justify-content: space-between;
 }
 
-.header--brand{
-    margin-left: 7px;
-    font-weight: 600;
-    
-}
+
 
 .header--team{
-    display: grid;    margin-left : auto;
-    margin-right: 40px;
+    display: flex;
+    flex-direction: column;       
+    margin-left: 25px;
+    text-align: left;
 }
 
-.header > img{
+
+.header--brand{
+    font-weight: 600;
+}
+
+
+.header--brand > img{
     width: 35px;
-    margin-left: 30px;
+    margin-left: 5px;
+}
+
+.logo{
+    width: 100px;
+}
+
+.icons{
+    padding-left: 20px;
+}
+
+.icons > img{
+    width: 30px;
+    margin-left: 10px;
+    margin-right: 25px;
 }
 
 
+
+/* Title */
 
 .title-box{
+    /* https://www.pexels.com/photo/a-person-marking-a-test-paper-6684373/ */
     background-image: url(images/mark.jpeg);
     background-size: 103%;
     background-repeat: no-repeat;
-    background-position: 10% 30%;
+    background-position: 10% 37%;
+    margin-top: 26px;
+
+    margin: 20px 15px 25px 15px;
+    border-radius: 10px;
+
+   
 }
 
 
@@ -53,24 +118,27 @@ body {
     padding: 30px;
     padding-bottom: 55px;
 
-    height: 550px;
+    height: 360px;
+    background-color: rgba(217, 212, 212, 0.372);
 
+    /*
     background-image: url("images/oval.png");
     background-position: 49.5% 50%;
     background-size: 50% 87%;
-    background-repeat: no-repeat;
-
+    background-repeat: no-repeat;*/
+    
+    position: relative;
 
 }
 
 .title > h1{
-    font-size: 80px;
+    font-size: 70px;
     font-weight: 600;
     /*border: solid;
     border-width: 5px;
     border-radius: 250px;*/
     padding: 20px 40px 10px 40px;
-    width: 600px;
+    width: 800px;
 }
 
 .title > span{
@@ -80,29 +148,43 @@ body {
 }
 
 
+.credits{
+    position: absolute;
+    bottom: 2px;
+    right: 2px;
+    font-size: 9px;
+}
 
+.credits > img{
+    width: 10px;
+    margin-right: 2px;
+}
+
+
+/* Input */
 
 .input-body{
-    background-color: rgba(203, 106, 231, 0.29);
+    display: flex;
+    flex-direction: column;
+    
+    background-color: #93B9FA;
     display: flex;
     justify-content: center;
-    margin: 40px 55px 200px 55px;
+    margin: 400px 55px 200px 55px;
     border-radius: 10px;
 }
 
 .input-grid{
     display: grid;
-    grid-template-columns: 3fr 1fr;
     align-items: center;
+    grid-template-columns: 3fr 1fr;
 }
 
 
-
-
+/* InputFile */
 
 input[type="file"] {
     display: none;
-    size: 40%;
 }
 
 .form-label {
@@ -110,19 +192,82 @@ input[type="file"] {
     font-weight: 700;
     display: inline-block; 
     color: white;
-    background-color: rgba(0, 0, 0, 0.505);
-    border-radius: 20px;
+    background-color: rgba(32, 103, 209, 0.77);
+    border-radius: 40px;
     cursor: pointer;
-    padding: 25px 60px 25px 60px;
+    padding: 20px 50px 20px 50px;
     margin-top: 20px;
-    width: 400;
+
+    transition-duration: 0.15s, 0.15s, 0.15s, 0.15s;
+    transition-property: color, background-color, border-color, box-shadow;
 }
 
-.pdf{
+.form-label:hover{
+    background-color:  rgba(32, 103, 209, .99);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.116),0 1px 1px rgba(0, 0, 0, 0.075);
+}
+
+.file{
     display: grid;
     justify-content: center;
     border: solid;
     border-color: black;
     padding: 130px 0px 130px 0px;
     margin: 50px 50px 50px 50px;
+    position: relative;
+}
+
+
+.file--title{
+    margin-top: 50px;
+    font-size: 25px;
+}
+
+.delete{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 5px;
+}
+.delete > button {
+    border: none;
+    border-radius: 10px;
+    width: 20px;
+    height: 20px;
+    margin-left: 5px;
+    font-size: 10px;
+    background-color: rgba(240, 230, 230, 0.626);
+    
+}
+
+.add{
+    font-size: 20px;
+    font-weight: 700;
+    display: inline-block; 
+    color: white;
+    background-color: rgba(32, 103, 209, 0.77);
+    border-radius: 40px;
+    cursor: pointer;
+    padding: 20px 50px 20px 50px;
+    margin-bottom: 15px;
+
+    transition-duration: 0.15s, 0.15s, 0.15s, 0.15s;
+    transition-property: color, background-color, border-color, box-shadow;
+
+}
+
+/* Dropdown, Submit */
+
+
+.dropdown{
+    margin: 25px 50px 25px 25px;
+}
+
+.buttons > .btn {
+    margin: 5px 50px 25px 25px;
+
+    width: 230px;
+    height: 55px;
+    font-size: 19px;
+    font-weight: 600;
 }
