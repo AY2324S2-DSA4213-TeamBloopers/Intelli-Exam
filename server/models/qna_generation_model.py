@@ -59,7 +59,7 @@ class QNAGenerationModel:
         - str: The generated prompt for generating an open-ended question.
 
         """
-        start = "Generate an open ended question using source and context data with answers. There should be a short explanation given for the answer. \n"
+        start = "Generate an open ended question using the context data with answers. There should be a short explanation given for the answer. \n"
         prompt = f"Prompt: {prompt}"
         context = f"Contextual Data: {context}"
         end = f"The answer should be less than {max_new_tokens} words. And in the format:  Question: [Question] \\n Answer: [Answer] \\n Explanation: [Explanation]"
