@@ -1,5 +1,6 @@
-venv
+venv/
+__pycache__/ 
+server/rag/database_data/ 
 .env
 server/models_testing/
 server/test.py
-*__pycache__
