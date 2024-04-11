@@ -21,8 +21,9 @@ export default function App(){
             <div ref={bottomEl}>
                 <Input/>
             </div>
-            
         </div>
+
+        
     )
 }
 

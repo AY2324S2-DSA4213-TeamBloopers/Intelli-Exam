@@ -2,18 +2,16 @@ import React from "react"
 import InputFile from "./InputFile"
 import Dropdown from "./Dropdown"
 
+import axios from "axios"
 
-// import axios from "axios"
 
 export default function Input(){
 
     const [opt, setOpt] = React.useState("")
 
-
     function handleOptChange(event){
         setOpt(event.target.value)
     }
-
 
     const [files, setFile] = React.useState([])
 
@@ -26,24 +24,49 @@ export default function Input(){
         setFile(files.toSpliced(index, 1))
     }
 
+
+    const sendPDFToBackend = async () => {
+        try {
+            if (!files){
+                console.log("no files")
+            }
+    
+            const fd = new FormData()
+            files.forEach((file, index) => {
+                fd.append(`file${index+1}`, file)
+            })
+    
+            const response = await axios.post('http://localhost:5001/questions', fd, {
+                headers: {
+                'Content-Type': 'multipart/form-data',
+                },
+                responseType:'blob'
+            });
+
+            const blob = new Blob([response.data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+            
+            // Create a temporary URL to the Excel file 
+            const url = window.URL.createObjectURL(blob); 
+        
+            // Create a link and trigger the download 
+            const link = document.createElement('a'); 
+            link.href = url; 
+            link.setAttribute('download', 'output.xlsx'); 
+            document.body.appendChild(link); 
+            link.click(); 
+
+        
+            console.log('PDF uploaded successfully:', response.data);
+            } catch (error) {
+            console.error('Error uploading PDF:', error);
+            }
+      };
     
     function handleSubmit(event){
 
         event.preventDefault();
-        /*
-        
-        if (!files){
-            return;
-        }
 
-        const fd = new FormData()
-        files.forEach((file, index) => {
-            fd.append(`file${index+1}`, file)
-        })
-        
-
-        axios.post("", fd, {
-        })*/
+        sendPDFToBackend();
     }
 
     return(
@@ -66,7 +89,6 @@ export default function Input(){
                         Submit
                     </button>       
                 </div>
-
             </div>
         </form>
     )

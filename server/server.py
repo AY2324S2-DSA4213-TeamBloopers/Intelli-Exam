@@ -59,6 +59,7 @@ def get_questions():
         return create_excel_file(questions)
         
     except Exception as e:
+        raise e
         return "PDF cannot be read"
     
 def create_temp_folder():
