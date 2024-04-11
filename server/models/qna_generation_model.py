@@ -50,28 +50,28 @@ class QNAGenerationModel:
 
         return reply.content
 
-    def generate_open_ended(self, context_list, count, max_tokens_per_answer=100):
+    def generate_open_ended(self, context_list, count, max_tokens_per_answer=50):
         """
         Generates open-ended questions for each context in the provided list.
 
         Args:
         - context_list (list of str): List of contextual data for generating questions.
         - count (int): How many questions the model should generate.
-        - max_tokens_per_answer (int, optional): The maximum number of tokens allowed for each generated answer. Default is 100.
+        - max_tokens_per_answer (int, optional): The maximum number of tokens allowed for each generated answer. Default is 50.
 
         Returns:
-        - str: The content of the generated questions.
+        - list of str: list of chunks of content as str in json format
         """
         # Generate prompts
         prompt = f"Generate an open ended question for each context data with answers. Each answer should be less than {max_tokens_per_answer} words. There should be a short explanation given for the answer. \n"       
-        end = "You must respond in JSON with the format like this {Q1: {Question: [Question], Answer: [Answer], Explanation: [Explanation]}, Q2{Question: [Question], Answer: [Answer], Explanation: [Explanation]} ...}" 
+        end = "You must respond in JSON with the format like this {Output:[{Question: [Question], Answer: [Answer], Explanation: [Explanation]},{Question: [Question], Answer: [Answer], Explanation: [Explanation]}, ...]}" 
 
         generates = len(context_list)
 
         #Split questions equally to number of contexts
         num_questions_list = [count // generates + (1 if x < count % generates else 0)  for x in range (generates)]
 
-        collated_replies = ""
+        collated_replies = []
 
         i = 0
 
@@ -79,12 +79,9 @@ class QNAGenerationModel:
             num_questions = num_questions_list[i]
             if num_questions > 0:
                 i += 1
-                context_prompt = prompt + self.generate_prompt_oe(context, num_questions)
+                context_prompt = prompt + self.generate_prompt_mcq(context, num_questions)
                 context_prompt += end
-
-                reply = self.generate(context_prompt)
-
-                collated_replies += reply.content
+                collated_replies.append(self.generate(context_prompt, timeout = 90 + num_questions*20))
 
         return collated_replies
 
@@ -97,17 +94,17 @@ class QNAGenerationModel:
         - count (int): How many questions the model should generate.
 
         Returns:
-        - str: The content of the generated questions.
+        - list of str: list of chunks of content as str in json format
         """
         # Generate prompts
         prompt = "Generate MCQ open ended questions for each context data with answers. Each MCQ questions should have four choices. There should be a short explanation given for the answer. \n"
-        end = "You must respond in JSON with the format like this {Q: Question:{Question:[Question], a:[Answer], b:[Answer], c:[Answer] d:[Answer]}, Answer:[Answer] , Explanation:[Explanation]}, Q: Question:{Question:[Question], a:[Answer], b:[Answer], c:[Answer] d:[Answer]}, Answer:[Answer], Explanation: [Explanation]} ...}"
+        end = "You must respond in JSON with the format like this {Output:[{Question:[Question], Choices:{a:[Answer1], b:[Answer2], c:[Answer3] d:[Answer4]}, Answer:[Answer] , Explanation:[Explanation]},{Question:[Question], Choices:{a:[Answer1], b:[Answer2], c:[Answer3] d:[Answer4]}, Answer:[Answer] , Explanation:[Explanation]} ...]}"
 
         generates = len(context_list)
 
         num_questions_list = [count // generates + (1 if x < count % generates else 0)  for x in range (generates)]
 
-        collated_replies = ""
+        collated_replies = []
 
         i = 0
 
@@ -117,10 +114,7 @@ class QNAGenerationModel:
                 i += 1
                 context_prompt = prompt + self.generate_prompt_mcq(context, num_questions)
                 context_prompt += end
-
-                reply = self.generate(context_prompt)
-
-                collated_replies += reply.content
+                collated_replies.append(self.generate(context_prompt, timeout= 70 + num_questions*10))
 
         return collated_replies
 
