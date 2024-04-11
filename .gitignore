@@ -4,3 +4,4 @@ server/rag/database_data/
 .env
 server/models_testing/
 server/test.py
+*.xlsx
