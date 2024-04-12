@@ -8,7 +8,7 @@ class QNAGenerationModel:
     - client(H2OGPTE): An instance of H2OGPTE used for connecting to the API.
     - chat_session_id(str): ID of the chat session used for generating questions.
     """
-    
+
     def __init__(self, api_key):
         """
         Initializes the QNAGenerationModel by connecting to the H2OGPTE client and setting up a chat session.
@@ -24,74 +24,101 @@ class QNAGenerationModel:
         )
 
         # Set up chat session
-        
+        self.chat_session_id = self.client.create_chat_session_on_default_collection()
 
-    def generate(self, context, max_tokens_per_answer=100) :
+
+    def generate(self, prompt, timeout = 70) :
         """
-        Generates an open-ended question using the provided context.
+        Generates an open-ended question using the prompt
 
-        Args:   
-        - context (str): The contextual data to be used for generating the question.
-        - max_tokens_per_answer (int): The maximum number of tokens allowed for the generated question.
+        Args:
+        - prompt (str): LLM generates from the prompt
+        - timeout (int, optional): How long it waits until timeout.
 
         Returns:
         - str: The generated open-ended question.
 
         """
-        # Generate prompt
-        prompt = f"Generate an open ended question for each context data with answers. Each answer should be less than {max_tokens_per_answer} words. There should be a short explanation given for the answer. \n"
-        end = "You must strictly follow the format:  {Question: [Question] \\n Answer: [Answer] \\n Explanation: [Explanation]\\n}"
-        prompt += self.generate_prompt(context=context)
-        prompt += end
-        
-        # Connect with chat_session and query
-
         reply = None
         while not reply:
-            try: 
-                chat_session_id = self.client.create_chat_session_on_default_collection()
-                with self.client.connect(chat_session_id) as session:
-                    reply = session.query(prompt, timeout=40, rag_config={"rag_type": "llm_only"})
+            try:
+                with self.client.connect(self.chat_session_id) as session:
+                    reply = session.query(prompt, timeout=timeout, rag_config={"rag_type": "llm_only"})
             except Exception as e:
+                self.chat_session_id = self.client.create_chat_session_on_default_collection()
                 continue
-                    
+
         return reply.content
 
-    def generate_all(self, context_list, max_tokens_per_answer=100):
+    def generate_open_ended(self, context_list, count, max_tokens_per_answer=50):
         """
         Generates open-ended questions for each context in the provided list.
 
         Args:
         - context_list (list of str): List of contextual data for generating questions.
-        - max_tokens_per_answer (int, optional): The maximum number of tokens allowed for each generated answer. Default is 100.
+        - count (int): How many questions the model should generate.
+        - max_tokens_per_answer (int, optional): The maximum number of tokens allowed for each generated answer. Default is 50.
 
         Returns:
-        - str: The content of the generated questions.
+        - list of str: list of chunks of content as str in json format
         """
         # Generate prompts
-        prompt = f"Generate an open ended question for each context data with answers. Each answer should be less than {max_tokens_per_answer} words. There should be a short explanation given for the answer. \n"
-        end = "You must respond in JSON with the format like this {Q1: {Question: [Question], Answer: [Answer], Explanation: [Explanation]}, Q2{Question: [Question], Answer: [Answer], Explanation: [Explanation]} ...}"
+        prompt = f"Generate an open ended question for each context data with answers. Each answer should be less than {max_tokens_per_answer} words. There should be a short explanation given for the answer. \n"       
+        end = "You must respond in JSON with the format like this {Output:[{Question: [Question], Answer: [Answer], Explanation: [Explanation]},{Question: [Question], Answer: [Answer], Explanation: [Explanation]}, ...]}" 
+
+        generates = len(context_list)
+
+        #Split questions equally to number of contexts
+        num_questions_list = [count // generates + (1 if x < count % generates else 0)  for x in range (generates)]
+
+        collated_replies = []
+
+        i = 0
 
         for context in context_list:
-            prompt += self.generate_prompt(context=context)
-        
-        prompt += end
+            num_questions = num_questions_list[i]
+            if num_questions > 0:
+                i += 1
+                context_prompt = prompt + self.generate_prompt_mcq(context, num_questions)
+                context_prompt += end
+                collated_replies.append(self.generate(context_prompt, timeout = 90 + num_questions*20))
 
-        reply = None
+        return collated_replies
 
-        while not reply:
-            try: 
-                chat_session_id = self.client.create_chat_session_on_default_collection()
-                with self.client.connect(chat_session_id) as session:
-                    reply = session.query(prompt, timeout=70, rag_config={"rag_type": "llm_only"}, llm_args={"max_new_tokens": 2048})
-            except Exception as e:
-                continue
-            
-        return reply.content
-        
-        
+    def generate_mcq(self, context_list, count):
+        """
+        Generates MCQ questions for each context in the provided list.
 
-    def generate_prompt(self, context):
+        Args:
+        - context_list (list of str): List of contextual data for generating questions.
+        - count (int): How many questions the model should generate.
+
+        Returns:
+        - list of str: list of chunks of content as str in json format
+        """
+        # Generate prompts
+        prompt = "Generate MCQ open ended questions for each context data with answers. Each MCQ questions should have four choices. There should be a short explanation given for the answer. \n"
+        end = "You must respond in JSON with the format like this {Output:[{Question:[Question], Choices:{a:[Answer1], b:[Answer2], c:[Answer3] d:[Answer4]}, Answer:[Answer] , Explanation:[Explanation]},{Question:[Question], Choices:{a:[Answer1], b:[Answer2], c:[Answer3] d:[Answer4]}, Answer:[Answer] , Explanation:[Explanation]} ...]}"
+
+        generates = len(context_list)
+
+        num_questions_list = [count // generates + (1 if x < count % generates else 0)  for x in range (generates)]
+
+        collated_replies = []
+
+        i = 0
+
+        for context in context_list:
+            num_questions = num_questions_list[i]
+            if num_questions > 0:
+                i += 1
+                context_prompt = prompt + self.generate_prompt_mcq(context, num_questions)
+                context_prompt += end
+                collated_replies.append(self.generate(context_prompt, timeout= 70 + num_questions*10))
+
+        return collated_replies
+
+    def generate_prompt_oe(self, context, count):
         """
         Generates a prompt for generating an open-ended question using the given context.
 
@@ -102,7 +129,24 @@ class QNAGenerationModel:
         Returns:
         - str: The generated prompt for generating an open-ended question.
         """
-        prompt = "Prompt: Give me an open ended question"
+        prompt = f"Prompt: Give me {count} number of open ended questions form the following context"
         context = f"Contextual Data: {context}"
-        
+
+        return(prompt + context)
+
+    def generate_prompt_mcq(self, context, count):
+        """
+        Generates a prompt for generating an open-ended question using the given context.
+
+        Args:
+        - prompt (str): The initial prompt for generating the question.
+        - context (str): The contextual data to be included in the prompt.
+        - count (int): The number of questions the ML should generate form this context
+
+        Returns:
+        - str: The generated prompt for generating an open-ended question.
+        """
+        prompt = f"Prompt: Give me {count} number of mcq questions from following context"
+        context = f"Contextual Data: {context}"
+
         return(prompt + context)
