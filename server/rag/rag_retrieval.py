@@ -38,3 +38,6 @@ class RagPipeline:
         results = list(self.collection.aggregate(pipeline))
         return results
     
+    def search_database_random(self, amount):
+        random_results = list(self.collection.aggregate([{ "$sample": { "size": amount } }]))
+        return random_results
