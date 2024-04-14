@@ -1,8 +1,8 @@
 import React from "react"
 
-export default function Dropdown(props){
+export default function UploadType(props){
     return(
-        <div className="dropdown">
+        <div className="upload-type">
             <select 
                 onChange={props.onChange} 
                 name="type"
