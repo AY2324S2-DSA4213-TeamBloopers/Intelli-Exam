@@ -1,10 +1,10 @@
 body {
-    font-family: Inter;
-    font-weight: 400;
-    font-size: 18px;
-    background-color: #c1cdf2d3;
-    
-    text-align: center;
+  font-family: Inter;
+  font-weight: 400;
+  font-size: 18px;
+  background-color: #c1cdf2d3;
+
+  text-align: center;
 }
 
 /*
@@ -32,233 +32,282 @@ body {
     --primary-900: #011C26;
 */
 
-.start{
-    width: 400px;
-    height: 120px;
-    border: none;
-    border-radius: 100px;
-    font-size: 40px;
+.start {
+  width: 400px;
+  height: 120px;
+  border: none;
+  border-radius: 100px;
+  font-size: 40px;
 
-    background-color: #4065dfcd;
-    color: white;    
+  background-color: #4065dfcd;
+  color: white;
 }
 
 /* Header */
 
-.header{
-    display: flex;
-    align-items: center;
-    margin: 20px 15px 25px 15px;
-    padding: 10px;
-    background-color: #4a8be0a7;
-    border-radius: 10px;
-    justify-content: space-between;
+.header {
+  display: flex;
+  align-items: center;
+  margin: 20px 15px 25px 15px;
+  padding: 10px;
+  background-color: #4a8be0a7;
+  border-radius: 10px;
+  justify-content: space-between;
 }
 
-
-
-.header--team{
-    display: flex;
-    flex-direction: column;       
-    margin-left: 25px;
-    text-align: left;
+.header--team {
+  display: flex;
+  flex-direction: column;
+  margin-left: 25px;
+  text-align: left;
 }
 
-
-.header--brand{
-    font-weight: 600;
+.header--brand {
+  font-weight: 600;
 }
 
-
-.header--brand > img{
-    width: 35px;
-    margin-left: 5px;
+.header--brand > img {
+  width: 35px;
+  margin-left: 5px;
 }
 
-.logo{
-    width: 100px;
+.logo {
+  width: 100px;
 }
 
-.icons{
-    padding-left: 20px;
+.icons {
+  padding-left: 20px;
 }
 
-.icons > img{
-    width: 30px;
-    margin-left: 10px;
-    margin-right: 25px;
+.icons > img {
+  width: 30px;
+  margin-left: 10px;
+  margin-right: 25px;
 }
-
-
 
 /* Title */
 
-.title-box{
-    /* https://www.pexels.com/photo/a-person-marking-a-test-paper-6684373/ */
-    background-image: url(images/mark.jpeg);
-    background-size: 103%;
-    background-repeat: no-repeat;
-    background-position: 10% 37%;
-    margin-top: 26px;
+.title-box {
+  /* https://www.pexels.com/photo/a-person-marking-a-test-paper-6684373/ */
+  background-image: url(images/mark.jpeg);
+  background-size: 103%;
+  background-repeat: no-repeat;
+  background-position: 10% 37%;
+  margin-top: 26px;
 
-    margin: 20px 15px 25px 15px;
-    border-radius: 10px;
-
-   
+  margin: 20px 15px 25px 15px;
+  border-radius: 10px;
 }
 
+.title {
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  font-size: 20px;
 
+  padding: 30px;
+  padding-bottom: 55px;
 
-.title{
-    display: grid;
-    align-content: center;
-    justify-items: center;
-    font-size: 20px;
+  height: 360px;
+  background-color: rgba(217, 212, 212, 0.372);
 
-    padding: 30px;
-    padding-bottom: 55px;
-
-    height: 360px;
-    background-color: rgba(217, 212, 212, 0.372);
-
-    position: relative;
-
+  position: relative;
 }
 
-.title > h1{
-    font-size: 70px;
-    font-weight: 600;
-    padding: 20px 40px 10px 40px;
-    width: 800px;
+.title > h1 {
+  font-size: 70px;
+  font-weight: 600;
+  padding: 20px 40px 10px 40px;
+  width: 800px;
 }
 
-.title > span{
-    margin-top: 0px;
-    margin-bottom: 40px;
-    width: 350px;
+.title > span {
+  margin-top: 0px;
+  margin-bottom: 40px;
+  width: 350px;
 }
 
-
-.credits{
-    position: absolute;
-    bottom: 2px;
-    right: 2px;
-    font-size: 9px;
+.credits {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  font-size: 9px;
 }
 
-.credits > img{
-    width: 10px;
-    margin-right: 2px;
+.credits > img {
+  width: 10px;
+  margin-right: 2px;
 }
-
 
 /* Input */
 
-.input-body{
-    display: flex;
-    flex-direction: column;
-    
-    background-color: #93B9FA;
-    display: flex;
-    justify-content: center;
-    margin: 400px 55px 200px 55px;
-    border-radius: 10px;
+.input-body {
+  display: flex;
+  flex-direction: column;
+
+  background-color: #93b9fa;
+  display: flex;
+  justify-content: center;
+  margin: 400px 55px 200px 55px;
+  border-radius: 10px;
 }
 
-.input-grid{
-    display: grid;
-    align-items: center;
-    grid-template-columns: 3fr 1fr;
+.input-grid {
+  display: grid;
+  align-items: center;
+  grid-template-columns: 3fr 1fr;
 }
 
+.module {
+  align-self: center;
+  margin-right: 10px;
+}
 
 /* InputFile */
 
 input[type="file"] {
-    display: none;
+  display: none;
 }
 
 .form-label {
-    font-size: 20px;
-    font-weight: 700;
-    display: inline-block; 
-    color: white;
-    background-color: rgba(32, 103, 209, 0.77);
-    border-radius: 40px;
-    cursor: pointer;
-    padding: 20px 50px 20px 50px;
-    margin-top: 20px;
+  font-size: 20px;
+  font-weight: 700;
+  display: inline-block;
+  color: white;
+  background-color: rgba(32, 103, 209, 0.77);
+  border-radius: 40px;
+  cursor: pointer;
+  padding: 20px 50px 20px 50px;
+  margin-top: 20px;
 
-    transition-duration: 0.15s, 0.15s, 0.15s, 0.15s;
-    transition-property: color, background-color, border-color, box-shadow;
+  transition-duration: 0.15s, 0.15s, 0.15s, 0.15s;
+  transition-property: color, background-color, border-color, box-shadow;
 }
 
-.form-label:hover{
-    background-color:  rgba(32, 103, 209, .99);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.116),0 1px 1px rgba(0, 0, 0, 0.075);
+.form-label:hover {
+  background-color: rgba(32, 103, 209, 0.99);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.116),
+    0 1px 1px rgba(0, 0, 0, 0.075);
 }
 
-.file{
-    display: grid;
-    justify-content: center;
-    border: solid;
-    border-color: black;
-    padding: 130px 0px 130px 0px;
-    margin: 50px 50px 50px 50px;
-    position: relative;
+.file {
+  display: grid;
+  justify-content: center;
+  border: solid;
+  border-color: black;
+  padding: 130px 0px 130px 0px;
+  margin: 50px 30px 50px 50px;
+  position: relative;
 }
 
-
-.file--title{
-    margin-top: 50px;
-    font-size: 25px;
+.file--title {
+  margin-top: 50px;
+  margin-bottom: 35px;
+  font-size: 25px;
 }
 
-.delete{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 5px;
+.delete {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 5px;
 }
 .delete > button {
-    border: none;
-    border-radius: 10px;
-    width: 20px;
-    height: 20px;
-    margin-left: 5px;
-    font-size: 10px;
-    background-color: rgba(240, 230, 230, 0.626);
-    
+  border: none;
+  border-radius: 10px;
+  width: 20px;
+  height: 20px;
+  margin-left: 5px;
+  font-size: 10px;
+  background-color: rgba(240, 230, 230, 0.626);
 }
 
-.add{
-    font-size: 20px;
-    font-weight: 700;
-    display: inline-block; 
-    color: white;
-    background-color: rgba(32, 103, 209, 0.77);
-    border-radius: 40px;
-    cursor: pointer;
-    padding: 20px 50px 20px 50px;
-    margin-bottom: 15px;
+.add {
+  font-size: 20px;
+  font-weight: 700;
+  display: inline-block;
+  color: white;
+  background-color: rgba(32, 103, 209, 0.77);
+  border-radius: 40px;
+  cursor: pointer;
+  padding: 20px 50px 20px 50px;
+  margin-bottom: 15px;
 
-    transition-duration: 0.15s, 0.15s, 0.15s, 0.15s;
-    transition-property: color, background-color, border-color, box-shadow;
-
+  transition-duration: 0.15s, 0.15s, 0.15s, 0.15s;
+  transition-property: color, background-color, border-color, box-shadow;
 }
 
-/* Dropdown, Submit */
+/* UploadType, Submit */
 
-
-.dropdown{
-    margin: 25px 50px 25px 25px;
+.buttons {
+  margin-bottom: 30px;
+}
+.upload-type {
+  margin: 35px 50px 20px 25px;
 }
 
 .buttons > .btn {
-    margin: 5px 50px 25px 25px;
+  margin: 70px 50px 25px 25px;
 
-    width: 230px;
-    height: 55px;
-    font-size: 19px;
-    font-weight: 600;
+  width: 230px;
+  height: 55px;
+  font-size: 19px;
+  font-weight: 600;
+}
+
+.upload-type > .btn {
+  margin-bottom: 30px;
+}
+
+/* QnNum */
+
+.qn-grid {
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  grid-template-columns: 180px 100px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  font-size: 18px;
+}
+
+.num-grid {
+  display: grid;
+  width: 80px;
+  height: 40px;
+  grid-template-columns: 3fr 1fr;
+  justify-content: center;
+  font-size: 13.5px;
+}
+.num-input {
+  text-align: center;
+  width: 100%;
+  height: 100%;
+}
+
+.notice {
+  font-size: 13px;
+  font-weight: 400;
+  background-color: rgb(245, 160, 124);
+  padding: 8px;
+  border-radius: 5px;
+}
+
+.count-buttons {
+  font-size: 6px;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+}
+
+.count-buttons > button {
+  border: solid;
+  border-width: 1px;
+  border-radius: 2px;
+  height: 20px;
+}
+
+.down {
+  transform: rotate(180deg);
+  border-radius: 2px 0px 0px 0px;
 }
