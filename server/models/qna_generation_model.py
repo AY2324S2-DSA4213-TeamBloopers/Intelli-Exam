@@ -50,7 +50,7 @@ class QNAGenerationModel:
 
         return reply.content
 
-    def generate_open_ended(self, context_list, count, max_tokens_per_answer=50):
+    def generate_open_ended(self, context_list, count, max_tokens_per_answer=50, question_style = None):
         """
         Generates open-ended questions for each context in the provided list.
 
@@ -58,12 +58,13 @@ class QNAGenerationModel:
         - context_list (list of str): List of contextual data for generating questions.
         - count (int): How many questions the model should generate.
         - max_tokens_per_answer (int, optional): The maximum number of tokens allowed for each generated answer. Default is 50.
+        - question_style (string, optional): Prompts LLM to follow style of question.
 
         Returns:
         - list of str: list of chunks of content as str in json format
         """
         # Generate prompts
-        prompt = f"Generate an open ended question for each context data with answers. Each answer should be less than {max_tokens_per_answer} words. There should be a short explanation given for the answer. \n"       
+        prompt = f"You are an educator. Generate an open ended question for each context data with answers. Each answer should be less than {max_tokens_per_answer} words. There should be a short explanation given for the answer. \n"       
         end = "You must respond in JSON with the format like this {Output:[{Question: [Question], Answer: [Answer], Explanation: [Explanation]},{Question: [Question], Answer: [Answer], Explanation: [Explanation]}, ...]}" 
 
         generates = len(context_list)
@@ -80,24 +81,27 @@ class QNAGenerationModel:
             if num_questions > 0:
                 i += 1
                 context_prompt = prompt + self.generate_prompt_mcq(context, num_questions)
+                if (question_style):
+                    context_prompt += f"Please construct your question simlar to this style {question_style}"
                 context_prompt += end
                 collated_replies.append(self.generate(context_prompt, timeout = 90 + num_questions*20))
 
         return collated_replies
 
-    def generate_mcq(self, context_list, count):
+    def generate_mcq(self, context_list, count, question_style = None):
         """
         Generates MCQ questions for each context in the provided list.
 
         Args:
         - context_list (list of str): List of contextual data for generating questions.
         - count (int): How many questions the model should generate.
+        - question_style (string, optional): Prompts LLM to follow style of question.
 
         Returns:
         - list of str: list of chunks of content as str in json format
         """
         # Generate prompts
-        prompt = "Generate MCQ open ended questions for each context data with answers. Each MCQ questions should have four choices. There should be a short explanation given for the answer. \n"
+        prompt = "You are an educator. Generate MCQ open ended questions for each context data with answers. Each MCQ questions should have four choices. There should be a short explanation given for the answer. \n"
         end = "You must respond in JSON with the format like this {Output:[{Question:[Question], Choices:{a:[Answer1], b:[Answer2], c:[Answer3] d:[Answer4]}, Answer:[Answer] , Explanation:[Explanation]},{Question:[Question], Choices:{a:[Answer1], b:[Answer2], c:[Answer3] d:[Answer4]}, Answer:[Answer] , Explanation:[Explanation]} ...]}"
 
         generates = len(context_list)
@@ -113,6 +117,8 @@ class QNAGenerationModel:
             if num_questions > 0:
                 i += 1
                 context_prompt = prompt + self.generate_prompt_mcq(context, num_questions)
+                if (question_style):
+                    context_prompt += f"Please construct your question simlar to this style {question_style}"
                 context_prompt += end
                 collated_replies.append(self.generate(context_prompt, timeout= 70 + num_questions*10))
 
