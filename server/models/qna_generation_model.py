@@ -104,7 +104,7 @@ class QNAGenerationModel:
         - list of str: list of chunks of content as str in json format
         """
         # Generate prompts
-        prompt = "You are an educator. Generate MCQ open ended questions for each context data with answers. Each MCQ questions should have four choices. There should be a short explanation given for the answer. \n"
+        prompt = "You are an educator. Generate Multiple Choice Questions for each context data with answers. Each Multiple Choice Question should have four choices. There should be a short explanation given for the answer. \n"
         end = "You must strictly respond in JSON with the format like this {Output:[{Question:[Question], Choices:{a:[Answer1], b:[Answer2], c:[Answer3] d:[Answer4]}, Answer:[Answer] , Explanation:[Explanation]},{Question:[Question], Choices:{a:[Answer1], b:[Answer2], c:[Answer3] d:[Answer4]}, Answer:[Answer] , Explanation:[Explanation]} ...]}"
 
         generates = len(context_list)
@@ -161,7 +161,7 @@ class QNAGenerationModel:
 
         count = inflector.number_to_words(count)
 
-        prompt = f"Prompt: Give me strictly {count} mcq questions from following context"
+        prompt = f"Prompt: Give me strictly {count} multiple choice questions from following context"
         context = f"Contextual Data: {context}"
 
         return(prompt + context)
