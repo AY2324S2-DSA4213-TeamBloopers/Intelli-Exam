@@ -1,4 +1,7 @@
 from h2ogpte import H2OGPTE
+import inflect 
+
+inflector = inflect.engine()
 
 class QNAGenerationModel:
     """
@@ -65,7 +68,7 @@ class QNAGenerationModel:
         """
         # Generate prompts
         prompt = f"You are an educator. Generate an open ended question for each context data with answers. Each answer should be less than {max_tokens_per_answer} words. There should be a short explanation given for the answer. \n"       
-        end = "You must respond in JSON with the format like this {Output:[{Question: [Question], Answer: [Answer], Explanation: [Explanation]},{Question: [Question], Answer: [Answer], Explanation: [Explanation]}, ...]}" 
+        end = "You must strictly respond in JSON with the format like this {Output:[{Question: [Question], Answer: [Answer], Explanation: [Explanation]},{Question: [Question], Answer: [Answer], Explanation: [Explanation]}, ...]}" 
 
         generates = len(context_list)
 
@@ -101,8 +104,8 @@ class QNAGenerationModel:
         - list of str: list of chunks of content as str in json format
         """
         # Generate prompts
-        prompt = "You are an educator. Generate MCQ open ended questions for each context data with answers. Each MCQ questions should have four choices. There should be a short explanation given for the answer. \n"
-        end = "You must respond in JSON with the format like this {Output:[{Question:[Question], Choices:{a:[Answer1], b:[Answer2], c:[Answer3] d:[Answer4]}, Answer:[Answer] , Explanation:[Explanation]},{Question:[Question], Choices:{a:[Answer1], b:[Answer2], c:[Answer3] d:[Answer4]}, Answer:[Answer] , Explanation:[Explanation]} ...]}"
+        prompt = "You are an educator. Generate Multiple Choice Questions for each context data with answers. Each Multiple Choice Question should have four choices. There should be a short explanation given for the answer. \n"
+        end = "You must strictly respond in JSON with the format like this {Output:[{Question:[Question], Choices:{a:[Answer1], b:[Answer2], c:[Answer3] d:[Answer4]}, Answer:[Answer] , Explanation:[Explanation]},{Question:[Question], Choices:{a:[Answer1], b:[Answer2], c:[Answer3] d:[Answer4]}, Answer:[Answer] , Explanation:[Explanation]} ...]}"
 
         generates = len(context_list)
 
@@ -135,7 +138,10 @@ class QNAGenerationModel:
         Returns:
         - str: The generated prompt for generating an open-ended question.
         """
-        prompt = f"Prompt: Give me {count} number of open ended questions form the following context"
+
+        count = inflector.number_to_words(count)
+
+        prompt = f"Prompt: Give me strictly {count} open ended questions from the following context"
         context = f"Contextual Data: {context}"
 
         return(prompt + context)
@@ -147,12 +153,15 @@ class QNAGenerationModel:
         Args:
         - prompt (str): The initial prompt for generating the question.
         - context (str): The contextual data to be included in the prompt.
-        - count (int): The number of questions the ML should generate form this context
+        - count (int): The number of questions the ML should generate from this context
 
         Returns:
         - str: The generated prompt for generating an open-ended question.
         """
-        prompt = f"Prompt: Give me {count} number of mcq questions from following context"
+
+        count = inflector.number_to_words(count)
+
+        prompt = f"Prompt: Give me strictly {count} multiple choice questions from following context"
         context = f"Contextual Data: {context}"
 
         return(prompt + context)
