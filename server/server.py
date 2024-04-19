@@ -55,13 +55,13 @@ def get_questions():
             if input_type == "sample-question":
 
                 oe_content = []
-                oe_results = rag_pipeline.search_database_random(open_ended_count)
+                oe_results = rag_pipeline.search_database_random(open_ended_count, module_code)
                 for oe_result in oe_results:
                     oe_content.append(oe_result["content"])
                 oe_questions = qna_generation_model.generate_open_ended(context_list=oe_content, count=open_ended_count, question_style=texts[0])
 
                 mcq_content = []
-                mcq_results = rag_pipeline.search_database_random(mcq_count)
+                mcq_results = rag_pipeline.search_database_random(mcq_count, module_code)
                 for mcq_result in mcq_results:
                     mcq_content.append(mcq_result["content"])
                 mcq_questions = qna_generation_model.generate_mcq(context_list=mcq_content, count=mcq_count, question_style=texts[0])
@@ -69,7 +69,7 @@ def get_questions():
             else:
                 contents = []
                 for text in texts:
-                    first, second = rag_pipeline.search_database(text)
+                    first, second = rag_pipeline.search_database(text, module_code)
                     contents.append(text + first["content"])
                 oe_questions = qna_generation_model.generate_open_ended(context_list=contents, count=open_ended_count)
                 mcq_questions = qna_generation_model.generate_mcq(context_list=contents, count=mcq_count)
