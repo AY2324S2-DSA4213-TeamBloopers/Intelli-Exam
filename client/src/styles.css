@@ -200,6 +200,10 @@ input[type="file"] {
   position: relative;
 }
 
+.file > div > p {
+  margin-top: 10px;
+}
+
 .file--title {
   margin-top: 50px;
   margin-bottom: 35px;
@@ -257,6 +261,7 @@ input[type="file"] {
 
 .upload-type > .btn {
   margin-bottom: 30px;
+  margin-top: 10px;
 }
 
 /* QnNum */
@@ -287,8 +292,8 @@ input[type="file"] {
 
 .notice {
   font-size: 13px;
-  font-weight: 400;
-  background-color: rgb(245, 160, 124);
+  font-weight: 600;
+  color: rgb(252, 55, 11);
   padding: 8px;
   border-radius: 5px;
 }

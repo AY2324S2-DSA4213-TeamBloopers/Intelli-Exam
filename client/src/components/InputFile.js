@@ -5,6 +5,7 @@ export default function InputFile(props) {
     <div>
       <div class="file">
         <div>
+          {props.files.length === 0 && props.error.all && <span className="notice">*Required: File Input</span>}
           {props.files.length === 0 && <p>Supported file types: .pdf, .doc</p>}
           <label
             htmlFor="formFileMultiple"
