@@ -5,3 +5,4 @@ server/rag/database_data/
 server/models_testing/
 server/test.py
 *.xlsx
+tmp/

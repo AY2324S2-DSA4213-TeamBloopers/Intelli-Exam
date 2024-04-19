@@ -12,12 +12,13 @@ export default function Input() {
     setOpt(event.target.value);
   }
 
-  const [mcq, setMcq] = React.useState();
-  const [oe, setOe] = React.useState();
+  const [mcq, setMcq] = React.useState("");
+  const [oe, setOe] = React.useState("");
 
   const [error, setError] = React.useState({
     mcq: false,
     oe: false,
+    all: false,
   });
 
   function handleDecrease(event) {
@@ -49,7 +50,6 @@ export default function Input() {
           return { ...prev, [id]: true };
         });
 
-    console.log(error);
     id === "mcq" ? setMcq(newValue) : setOe(newValue);
   }
 
@@ -108,8 +108,18 @@ export default function Input() {
 
   function handleSubmit(event) {
     event.preventDefault();
+    console.log(files)
+    if (opt && files.length != 0 && mcq && oe) {
+      setError((prev) => {
+        return { ...prev, all: false };
+      });
 
-    sendPDFToBackend();
+      sendPDFToBackend();
+    } else {
+      setError((prev) => {
+        return { ...prev, all: true };
+      });
+    }
   }
 
   return (
@@ -130,10 +140,15 @@ export default function Input() {
       </div>
 
       <div className="input-grid">
-        <InputFile upload={handleFile} delete={handleDelete} files={files} />
+        <InputFile
+          upload={handleFile}
+          delete={handleDelete}
+          files={files}
+          error={error}
+        />
 
         <div class="buttons">
-          <UploadType value={opt} onChange={handleOptChange} />
+          <UploadType value={opt} onChange={handleOptChange} error={error}/>
           <QnNum
             mcq={mcq}
             oe={oe}
