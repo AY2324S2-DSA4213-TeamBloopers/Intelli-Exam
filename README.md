@@ -1,14 +1,20 @@
-<p><h1 align="center"> Intelli-Exam </h1></p>
+<p><h1 align="center"> 
+Intelli-Exam
 
-![Intelli-Exam](https://github.com/AY2324S2-DSA4213-TeamBloopers/Intelli-Exam/blob/main/client/public/images/logo2.png?raw=true) 
+![Intelli-Exam](https://gcdnb.pbrd.co/images/K5lQygPw4F84.png?o=1) 
+</h1></p>
+
 
 <h2 align="center">    
-    -
-    Hassle-free question generation for all educators
-    -
+    
+Hassle-free question generation for all educators
+    
 </h2>
 
 <div>
+<h3 align="center">    
+Project Description
+</h3>
 Intelli-Exam knows that educators are busy individuals, having to juggle many responsibilities. Furthermore, they are unable to resuse old exam questions as students normally seek them out for practice. The app provides a solution implementing RAG and LLMs to generate questions. The model generates MCQs and Open-Ended questions, and allows equcators to provide complimentary information to switch up the questions whilst still focusing on the syllabus.
 </div>
 
