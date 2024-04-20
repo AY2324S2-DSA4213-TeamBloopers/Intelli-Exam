@@ -20,7 +20,7 @@ Team Bloopers recognises the busy schedules of university educators. With Intell
 ## Solution Architecture
 
 <h2 align="center">
-    <a href="https://pasteboard.co/O3hf9asyhEG0.jpg" target="blank_">
+    <a href="https://gcdnb.pbrd.co/images/dXbtrepOslGg.gif" target="blank_">
         <img alt="Solution Architecture" src="https://gcdnb.pbrd.co/images/dXbtrepOslGg.gif"/>
     </a>
 </h2>
