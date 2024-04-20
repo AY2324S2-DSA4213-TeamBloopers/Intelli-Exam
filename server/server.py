@@ -52,7 +52,7 @@ def get_questions():
             texts = pdf_reader.get_text("tmp/" + pdf_name, input_type)
 
             # Combine texts with relevant content from RAG
-            if input_type == "sample-question":
+            if input_type == "sample":
 
                 oe_content = []
                 oe_results = rag_pipeline.search_database_random(open_ended_count, module_code)

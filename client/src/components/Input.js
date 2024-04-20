@@ -126,7 +126,7 @@
 
     
     const [loading, setLoading] = React.useState(false); // Added state for loading circle
-    const [mod, setMod] = React.useState(""); // Added state for module selected
+    const [mod, setMod] = React.useState("--Choose Module--"); // Added state for module selected
     const [isLegalMod, setLegalMod] = React.useState(true)// Added legality for module selected
 
     function handleModChange(event) { // Added mod change function
