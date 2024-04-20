@@ -17,14 +17,26 @@ Project Description
 Intelli-Exam knows that educators are busy individuals, having to juggle many responsibilities. Furthermore, they are unable to resuse old exam questions as students normally seek them out for practice. The app provides a solution implementing RAG and LLMs to generate questions. The model generates MCQs and Open-Ended questions, and allows equcators to provide complimentary information to switch up the questions whilst still focusing on the syllabus.
 </div>
 
-<p><h1 align="center"> Table of Contents </h1></p>
-
- 1) [Solution Architecture](#solution-architecture)
- 2) [Tech Stack](#tech-stack)
- 3) [Getting Started](#start-up)
- 4) [Dependencies](#dependencies)
- 5) [User Guide](#user-guide)
- 6) [Credits](#credits)
+<div>
+    <h1 align="center">Table of Contents</h1>
+        <div style="display: flex;">
+            <div style="flex: 1;">
+                <ul>
+                    <li><a href="#solution-architecture">Solution Architecture</a></li>
+                    <li><a href="#tech-stack">Tech Stack</a></li>
+                    <li><a href="#start-up">Getting Started</a></li>
+                    <li><a href="#dependencies">Dependencies</a></li>
+                    <li><a href="#user-guide">User Guide</a></li>
+                    <li><a href="#credits">Credits</a></li>
+                </ul>
+            </div>
+            <div style="flex: 1;">
+                <a href="https://cdn.dribbble.com/users/337865/screenshots/3209990/book-loader_v1.4_transp_800x600.gif" target="_blank">
+                    <img alt="Solution Architecture" src="https://cdn.dribbble.com/users/337865/screenshots/3209990/book-loader_v1.4_transp_800x600.gif" width="300" height="250" />
+                </a>
+            </div>
+    </div>
+</div>
 
 <a name="solution-architecture"></a>
 <p><h1 align="center"> Solution Architecture </h1></p>  
