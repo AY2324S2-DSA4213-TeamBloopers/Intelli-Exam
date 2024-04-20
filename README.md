@@ -1,8 +1,9 @@
 # DSA4213 Team Bloopers: Intelli-Exam
 
-<h1 align="center"> 
+<h2 align="center"> 
   <img src="https://gcdnb.pbrd.co/images/bvAYmoZY6wph.gif" alt="drawing" width="200"/>
-</h1>
+  <center>Hassle-free questions generation for NUS educators</center>
+</h2>
 
    
 ## Project Description
@@ -24,22 +25,22 @@ Team Bloopers recognises the busy schedules of university educators. With Intell
 ```bash
 - Intelli-Exam/
   ├── client/
-  |   ├── src
-  |   |   └── ...
-  |   ├── package.json
-  |   └── package-lock.json
+  │   ├── src
+  │   │   └── ...
+  │   ├── package.json
+  │   └── package-lock.json
   ├── server/
-  |   ├── folder_manager
-  |   |   └── temp_folder_manager.py
-  |   ├── models
-  |   |   └── qna_generation_model.py
-  |   ├── pdf_reader
-  |   |   └── pdf_reader.py
-  |   ├── rag
-  |   |   ├── database_setup.py
-  |   |   └── rag_retrieval.py
-  |   ├── requirements.txt
-  |   └── server.py
+  │   ├── folder_manager
+  │   │   └── temp_folder_manager.py
+  │   ├── models
+  │   │   └── qna_generation_model.py
+  │   ├── pdf_reader
+  │   │   └── pdf_reader.py
+  │   ├── rag
+  │   │   ├── database_setup.py
+  │   │   └── rag_retrieval.py
+  │   ├── requirements.txt
+  │   └── server.py
   ├── .gitignore
   └── README.md
 ```
