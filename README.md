@@ -1,6 +1,6 @@
 <p><h1 align="center"> 
 
-![Intelli-Exam](https://gcdnb.pbrd.co/images/K5lQygPw4F84.png?o=1) 
+![Intelli-Exam](https://gcdnb.pbrd.co/images/RD9xN0k9Dejm.gif?o=1) 
 </h1></p>
 
 
