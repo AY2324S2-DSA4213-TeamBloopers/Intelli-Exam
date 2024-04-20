@@ -6,21 +6,25 @@
   import QnNum from "./QnNum";
 
   export default function Input() {
+    // option for type of upload
     const [opt, setOpt] = React.useState("");
 
     function handleOptChange(event) {
       setOpt(event.target.value);
     }
 
+    // number of mcq & open-ended qns to be generated
     const [mcq, setMcq] = React.useState("");
     const [oe, setOe] = React.useState("");
 
+    // check for errors
     const [error, setError] = React.useState({
       mcq: false,
       oe: false,
       all: false,
     });
 
+    // handle updates for inputs of numbers of mcq/ oe
     function handleDecrease(event) {
       event.target.id === "mcq" ? mcq === "" && setMcq(0) : oe === "" && setOe(0);
 
@@ -53,6 +57,7 @@
       id === "mcq" ? setMcq(newValue) : setOe(newValue);
     }
 
+    // for uploading of files
     const [files, setFile] = React.useState([]);
 
     function handleFile(event) {
@@ -65,6 +70,7 @@
       setFile(files.toSpliced(index, 1));
     }
 
+    // for submitting files to backend
     const sendPDFToBackend = async () => {
       setLoading(true);
       try {
@@ -147,11 +153,13 @@
 
         <div>
           <span className="module">NUS Module:</span>
+          
           {!isLegalMod && (
             <span className="notice">
               Sorry, current module selection is not available
             </span>
           )}
+          
           <select className="btn btn-secondary dropdown-toggle" value={mod} onChange={handleModChange}>
             <option>--Choose Module--</option>
             <option>DSA4213</option>
