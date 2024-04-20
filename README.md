@@ -1,118 +1,141 @@
-<p><h1 align="center"> 
+<h1 align="center"> 
+  DSA4213 Team Bloopers: Intelli-exam
+</h1>
+<h1 align="center"> 
+  <img src="https://gcdnb.pbrd.co/images/bvAYmoZY6wph.gif" alt="drawing" width="200"/>
+</h1>
 
-![Intelli-Exam](https://gcdnb.pbrd.co/images/RD9xN0k9Dejm.gif?o=1) 
-</h1></p>
+<h2 align="center">
 
-
-<h2 align="center">    
-    
-Hassle-free question generation for all educators
+  *Hassle-free questions generation for NUS educators*
     
 </h2>
 
-<div>
-<h3 align="center">    
-Project Description
-</h3>
-Intelli-Exam knows that educators are busy individuals, having to juggle many responsibilities. Furthermore, they are unable to resuse old exam questions as students normally seek them out for practice. The app provides a solution implementing RAG and LLMs to generate questions. The model generates MCQs and Open-Ended questions, and allows equcators to provide complimentary information to switch up the questions whilst still focusing on the syllabus.
-</div>
+   
+## Project Description
 
-<p><h1 align="center"> Table of Contents </h1></p>
+Team Bloopers recognises the busy schedules of university educators. With Intelli-exam, we attempt to employ our proprietary RAG Pipeline, integrated with h2oGPTe's API to run their LLM model for questions generation. Question types include MCQs or open-ended, with educators having the flexibility to provide information or structure for question context and format, while ensuring they align with the syllabus.
 
- 1) [Solution Architecture](#solution-architecture)
- 2) [Tech Stack](#tech-stack)
- 3) [Getting Started](#start-up)
- 4) [Dependencies](#dependencies)
- 5) [User Guide](#user-guide)
- 6) [Credits](#credits)
 
-<a name="solution-architecture"></a>
-<p><h1 align="center"> Solution Architecture </h1></p>  
+## Solution Architecture
 
 <h2 align="center">
     <a href="https://pasteboard.co/O3hf9asyhEG0.jpg" target="blank_">
-        <img alt="Solution Architecture" src="https://gcdnb.pbrd.co/images/O3hf9asyhEG0.jpg?o=1" width="1000" height="450" />
+        <img alt="Solution Architecture" src="https://gcdnb.pbrd.co/images/dXbtrepOslGg.gif"/>
     </a>
 </h2>
 
-<a name="tech-stack"></a>
-<p><h1 align="center"> Tech Stack </h1></p>  
 
-1. **React**
-    - Frontend library for building interactive UI components
-2. **Python**
-    - Backend language utilized for server-side logic, data processing, API development, and building the pipeline.
-3. **Flask**
-    - Lightweight Python web framework used for building RESTful APIs and serving backend functionalities
-4. **MongoDB**
-    - NoSQL database used for RAG retrieval.
-5. **H2OGPTE**
-    - H2OGPTE, developed by H2O.ai, provides the large language model used in this project via API calls.
-
-<a name="start-up"></a>
-<p><h1 align="center"> Getting Started </h1></p>  
-
-.env file needs to be in the server folder, containing:
-
-**RAG_DATABASE_USERNAME**
-
-**RAG_DATABASE_PASSWORD**
-
-**H2O_API_KEY**
-
-Create a python environment by running the following commands (this is assuming Python is installed properly).
-
-For MacOS / Linux:
+## File Structure
 
 ```sh
-python3 -m venv venv
-source venv/bin/activate
-pip install -r server/requirements.txt
+- Intelli-Exam/
+  ├── client/
+  |   ├── src
+  |   |   └── ...
+  |   ├── package.json
+  |   └── package-lock.json
+  ├── server/
+  |   ├── folder_manager
+  |   |   └── temp_folder_manager.py
+  |   ├── models
+  |   |   └── qna_generation_model.py
+  |   ├── pdf_reader
+  |   |   └── pdf_reader.py
+  |   ├── rag
+  |   |   ├── database_setup.py
+  |   |   └── rag_retrieval.py
+  |   ├── requirements.txt
+  |   └── server.py
+  ├── .gitignore
+  └── README.md
 ```
 
-For Windows:
 
-```sh
-python3 -m venv venv
-venv\Scripts\activate
-pip install -r server\requirements.txt
-```
+## Tech Stack
 
-Next install required dependencies in 'package.json' file. Then start the server.
+- **React**: Frontend library for building interactive UI components
 
-```sh
-npm install
-npm start
-```
-In another terminal, run server.py
-```sh
-python server\server.py
-```
+- **Flask**: Provides a RESTful API backend powered by Flask, allowing communication between the frontend and backend.
 
-View the website in: http://localhost:3000/
+- **MongoDB Atlas**: A cloud-based NoSQL database, for vector search capabilities.
 
-<a name="dependencies"></a>
-<p><h1 align="center"> Dependencies </h1></p>  
+- **H2OGPTE**: H2OGPTE, developed by H2O.ai, provides the large language model used in this project via API calls.
 
-1) Python 3.9.6
-2) NPM 10.5.0
 
-<a name="user-guide"></a>
-<p><h1 align="center"> User Guide </h1></p>  
+## Getting Started
 
-Intelli-Exam should already have all the required information from the syllabus uploaded. If you can find the NUS module from the "NUS Module" drop down selector, you can generate questions from the module.
+1. Ensure you have Python and Node.js installed on your system:
 
-Select "Type Of Upload" and select the type of upload you are going to make. It can either be sample questions or context. For sample questions, the questions generated will attempt to follow the style of questions in the file. 
+   - Python: You can download Python from the [official website](https://www.python.org/downloads/). Make sure to add Python to your system's PATH during installation.
+   - Node.js: You can download Node.js from the [official website](https://nodejs.org/). Follow the installation instructions for your operating system.
+
+2. Clone the repository:
+
+  ```bash
+  git clone https://github.com/AY2324S2-DSA4213-TeamBloopers/Intelli-Exam.git
+  cd Intelli-Exam
+  ```
+
+3. Install React dependencies:
+
+  ```bash
+  cd client
+  npm install
+  ```
+
+4. Install Python dependencies in a virtual environment:
+
+  For MacOS/Linux:
+  ```bash
+  cd ../server
+  python3 -m venv venv
+  source venv/bin/activate
+  pip install -r requirements.txt
+  ```
+
+  For Windows
+  ```bash
+  cd ../server
+  python3 -m venv venv
+  venv/Scripts/activate
+  pip install -r requirements.txt
+  ```
+
+5. In the same terminal, run the server:
+  ```bash
+  python3 server.py
+  ```
+
+6. Without closing the current terminal, create a new terminal and start the react instance:
+  ```bash 
+  cd client
+  npm start
+  ```
+
+The website is then run at: http://localhost:3000/
+
+
+## User Guide
+
+![Homepage](https://gcdnb.pbrd.co/images/t8pXukC84AQV.png?o=1)
+
+Intelli-Exam should already have all the required content within the syllabus uploaded in its database. If you can find the NUS module from the "NUS Module" drop down selector, you can generate questions from the module.
+
+![Upload Page](https://gcdnb.pbrd.co/images/cYyMBzxIWFbt.png?o=1)
+
+Under "Type Of Upload", select the type of documents that are going to be used. It can either be sample questions or context. For sample questions, the questions generated will attempt to follow the style of questions in the file. 
 For context, the questions generated will attempt to form questions using the complimentary information provided whilst still focusing on the syllabus.
 
-Upload the file by presing "Browse files". Take note the app will only accept doc or pdf files.
 
-You can select the number of MCQ and Open ended questions you want to generate, from 0 to 20.
+Upload the files by presing "Browse files". Take note that the Intelli-Exam currently accepts pdf files only.
 
-Finally, press submit and the questions will be sent over in excel format.
+You can select the number of MCQ and open-ended questions you want to generate, between 0 to 20.
 
-<a name="credits"></a>
-<p><h1 align="center"> Credits </h1></p>  
+Finally, press submit and wait for the excel file to download on your browser!
+
+
+## Contributors 
 <div>
  <table>
   <tr>
