@@ -19,8 +19,9 @@ Intelli-Exam knows that educators are busy individuals, having to juggle many re
 
 <div>
     <h1 align="center">Table of Contents</h1>
-        <div style="display: flex;">
-            <div style="flex: 1;">
+    <table>
+        <tr>
+            <td style="width: 50%;">
                 <ul>
                     <li><a href="#solution-architecture">Solution Architecture</a></li>
                     <li><a href="#tech-stack">Tech Stack</a></li>
@@ -29,13 +30,14 @@ Intelli-Exam knows that educators are busy individuals, having to juggle many re
                     <li><a href="#user-guide">User Guide</a></li>
                     <li><a href="#credits">Credits</a></li>
                 </ul>
-            </div>
-            <div style="flex: 1;">
+            </td>
+            <td style="width: 50%;">
                 <a href="https://cdn.dribbble.com/users/337865/screenshots/3209990/book-loader_v1.4_transp_800x600.gif" target="_blank">
                     <img alt="Solution Architecture" src="https://cdn.dribbble.com/users/337865/screenshots/3209990/book-loader_v1.4_transp_800x600.gif" width="300" height="250" />
                 </a>
-            </div>
-    </div>
+            </td>
+        </tr>
+    </table>
 </div>
 
 <a name="solution-architecture"></a>
@@ -50,24 +52,25 @@ Intelli-Exam knows that educators are busy individuals, having to juggle many re
 <a name="tech-stack"></a>
 <p><h1 align="center"> Tech Stack </h1></p>  
 
-1. **React**
-   - Frontend library for building interactive UI components.
+<table>
+    <tr>
+        <td>
+            <ul>
+                <li><strong>React</strong><br>Frontend library for building interactive UI components.</li>
+                <li><strong>Python</strong><br>Backend language utilized for server-side logic, data processing, API development, and building the pipeline.</li>
+                <li><strong>Flask</strong><br>Lightweight Python web framework used for building RESTful APIs and serving backend functionalities.</li>
+                <li><strong>MongoDB</strong><br>NoSQL database used for RAG (Red, Amber, Green) retrieval.</li>
+                <li><strong>H2OGPTE</strong><br>H2OGPTE, developed by H2O.ai, provides the large language model used in this project via API calls.</li>
+            </ul>
+        </td>
+        <td>
+            <div style="display: flex; align-items: center;">
+                <img alt="Solution Architecture" src="https://i.pinimg.com/originals/e1/f6/60/e1f660eef59d0ea6e12a97512bc3eb04.gif" width="300" height="250" />
+            </div>
+        </td>
+    </tr>
+</table>
 
-2. **Python**
-   - Backend language utilized for server-side logic, data processing, API development, and building the pipeline.
-
-3. **Flask**
-   - Lightweight Python web framework used for building RESTful APIs and serving backend functionalities.
-
-4. **MongoDB**
-   - NoSQL database used for RAG (Red, Amber, Green) retrieval.
-
-5. **H2OGPTE**
-   - H2OGPTE, developed by H2O.ai, provides the large language model used in this project via API calls.
-
-<div style="display: flex; align-items: center;">
-    <img alt="Solution Architecture" src="https://i.pinimg.com/originals/e1/f6/60/e1f660eef59d0ea6e12a97512bc3eb04.gif" width="300" height="250" />
-</div>
 
 <a name="start-up"></a>
 <p><h1 align="center"> Getting Started </h1></p>  
@@ -133,40 +136,43 @@ Finally, press submit and the questions will be sent over in excel format.
 
 <a name="credits"></a>
 <p><h1 align="center"> Credits </h1></p>  
-<div style="display: flex;">
-    <div style="flex: 1;">
-        <table>
-            <tr>
-                <th>No.</th>
-                <th>Contributers</th>
-                <th>GitHub Link</th>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>Lee Zhan Peng</td>
-                <td><a href="https://github.com/leezhanpeng" target="blank_">GitHub</a></td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>Jennifer Chue</td>
-                <td><a href="https://github.com/jenniferchue16" target="blank_">GitHub</a></td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>Celeste Neo</td>
-                <td><a href="https://github.com/celneo7" target="blank_">GitHub</a></td>
-            </tr>
-            <tr>
-                <td>4</td>
-                <td>Lincoln Teo</td>
-                <td><a href="https://github.com/BreatheManually" target="blank_">GitHub</a></td>
-            </tr>
-        </table>
-    </div>
-    <div style="flex: 1;">
-        <div style="display: flex; align-items: center; justify-content: center;">
-            <img alt="Solution Architecture" src="https://lordicon.com/icons/wired/lineal/957-team-work.gif" width="300" height="300" />
-        </div>
-    </div>
-</div>
+<table>
+    <tr>
+        <td>
+            <table>
+                <tr>
+                    <th>No.</th>
+                    <th>Contributers</th>
+                    <th>GitHub Link</th>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>Lee Zhan Peng</td>
+                    <td><a href="https://github.com/leezhanpeng" target="_blank">GitHub</a></td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Jennifer Chue</td>
+                    <td><a href="https://github.com/jenniferchue16" target="_blank">GitHub</a></td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>Celeste Neo</td>
+                    <td><a href="https://github.com/celneo7" target="_blank">GitHub</a></td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>Lincoln Teo</td>
+                    <td><a href="https://github.com/BreatheManually" target="_blank">GitHub</a></td>
+                </tr>
+            </table>
+        </td>
+        <td>
+            <a href="https://lordicon.com/icons/wired/lineal/957-team-work.gif" target="_blank">
+                <img alt="Solution Architecture" src="https://lordicon.com/icons/wired/lineal/957-team-work.gif" width="300" height="300" />
+            </a>
+        </td>
+    </tr>
+</table>
+
 
