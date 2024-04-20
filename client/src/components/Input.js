@@ -117,7 +117,7 @@
 
     function handleSubmit(event) {
       event.preventDefault();
-      console.log(files)
+      
       if (opt && files.length !== 0 && mcq && oe) {
         setError((prev) => {
           return { ...prev, all: false };
@@ -147,8 +147,7 @@
     return (
       <form onSubmit={handleSubmit} className="input-body">
         <h1 className="file--title">
-          Upload slides or documents of the content you teach to generate Exam
-          Q&As!
+          Upload documents of sample questions/ context to start generating Exam Q&As!
         </h1>
 
         <div>
