@@ -1,6 +1,7 @@
 <p><h1 align="center"> Intelli-Exam </h1></p>
 
-![Intelli-Exam](client\public\images\logo2.png) 
+![Intelli-Exam](https://github.com/AY2324S2-DSA4213-TeamBloopers/Intelli-Exam/blob/main/client/public/images/logo2.png?raw=true) 
+
 <h2 align="center">    
     -
     Hassle-free question generation for all educators
