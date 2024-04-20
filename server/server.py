@@ -30,7 +30,13 @@ temp_folder_manager = TempFolderManager()
 
 @app.route('/questions', methods=['POST', 'GET'])
 def get_questions():
+    """
+    API endpoint to generate questions based on uploaded PDF files.
 
+    Returns:
+        flask.Response: A Flask response object containing the generated Excel file as an attachment.
+    """
+    
     # Retrieve parameters for the question generation
     open_ended_count, mcq_count = int(request.args.get("open-ended-count")), int(request.args.get("mcq-count"))
     module_code = request.args.get("module-code")

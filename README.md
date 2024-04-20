@@ -51,7 +51,7 @@ Team Bloopers recognises the busy schedules of university educators. With Intell
 
 - **React**: Frontend library for building interactive UI components
 
-- **Flask**: Provides a RESTful API backend powered by Flask, allowing communication between the frontend and backend.
+- **Flask**: Provides a RESTful API backend, allowing communication between the frontend and backend.
 
 - **MongoDB Atlas**: A cloud-based NoSQL database, for vector search capabilities.
 
