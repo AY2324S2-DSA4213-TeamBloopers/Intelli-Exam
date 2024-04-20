@@ -58,6 +58,7 @@
     function handleFile(event) {
       const uploadedFiles = event.target.files;
       setFile([...files, ...uploadedFiles]);
+      event.target.value = null
     }
 
     function handleDelete(index) {
