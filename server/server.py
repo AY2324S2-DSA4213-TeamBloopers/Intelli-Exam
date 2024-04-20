@@ -1,6 +1,6 @@
 from pdf_reader.pdf_reader import PdfReader
 from rag.rag_retrieval import RagPipeline
-from models.qna_generation_model import QNAGenerationModel
+# from models.qna_generation_model import QNAGenerationModel
 from folder_manager.temp_folder_manager import TempFolderManager
 from dotenv import load_dotenv
 from flask import Flask, request, send_file
@@ -10,7 +10,7 @@ import os
 import pandas as pd 
 import json
 
-
+from models.qna_generation_model_new import QNAGenerationModel
 app = Flask(__name__)
 CORS(app)
 
@@ -52,30 +52,35 @@ def get_questions():
             texts = pdf_reader.get_text("tmp/" + pdf_name, input_type)
 
             # Combine texts with relevant content from RAG
-            if input_type == "sample-question":
+            if input_type == "sample":
 
                 oe_content = []
-                oe_results = rag_pipeline.search_database_random(open_ended_count)
+                oe_results = rag_pipeline.search_database_random(open_ended_count, module_code)
                 for oe_result in oe_results:
                     oe_content.append(oe_result["content"])
-                oe_questions = qna_generation_model.generate_open_ended(context_list=oe_content, count=open_ended_count, question_style=texts[0])
+                # oe_questions = qna_generation_model.generate_open_ended(context_list=oe_content, count=open_ended_count, question_style=texts[0])
+                oe_questions = qna_generation_model.generate_questions(contents=oe_content, num_qns=open_ended_count, open_ended=True, formatting=texts[0])
 
                 mcq_content = []
-                mcq_results = rag_pipeline.search_database_random(mcq_count)
+                mcq_results = rag_pipeline.search_database_random(mcq_count, module_code)
                 for mcq_result in mcq_results:
                     mcq_content.append(mcq_result["content"])
-                mcq_questions = qna_generation_model.generate_mcq(context_list=mcq_content, count=mcq_count, question_style=texts[0])
+                # mcq_questions = qna_generation_model.generate_mcq(context_list=mcq_content, count=mcq_count, question_style=texts[0])
+                mcq_questions = qna_generation_model.generate_questions(contents=mcq_content, num_qns=mcq_count, mcq=True, formatting=texts[0])
 
             else:
                 contents = []
                 for text in texts:
-                    first, second = rag_pipeline.search_database(text)
-                    contents.append(text + first["content"])
-                oe_questions = qna_generation_model.generate_open_ended(context_list=contents, count=open_ended_count)
-                mcq_questions = qna_generation_model.generate_mcq(context_list=contents, count=mcq_count)
+                    first, second = rag_pipeline.search_database(text, module_code)
+                    # contents.append(text + first["content"])
+                    contents.append(first["content"])
+
+                # oe_questions = qna_generation_model.generate_open_ended(context_list=contents, count=open_ended_count)
+                # mcq_questions = qna_generation_model.generate_mcq(context_list=contents, count=mcq_count)
+                oe_questions = qna_generation_model.generate_questions(contents=contents, num_qns=open_ended_count, open_ended=True, complimentary_info=texts)
+                mcq_questions = qna_generation_model.generate_questions(contents=contents, num_qns=mcq_count, mcq=True, complimentary_info=texts)
 
             questions = questions + oe_questions + mcq_questions
-
 
         temp_folder_manager.remove_temp_folder()
 

@@ -19,7 +19,7 @@ class PdfReader:
             result (list[str]): List of strings that has been extracted from the pdf file. 
         """
         
-        if input_type == "sample-question":
+        if input_type == "sample":
             # Return the text in the pdf file as a a whole 
             text = [re.sub("(\n)+", " ", extract_text(file_name).strip())]
         else:
