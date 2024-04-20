@@ -51,6 +51,15 @@ Intelli-Exam knows that educators are busy individuals, having to juggle many re
 
 <a name="start-up"></a>
 <p><h1 align="center"> Getting Started </h1></p>  
+
+.env file needs to be in the server folder, containing:
+
+**RAG_DATABASE_USERNAME**
+
+**RAG_DATABASE_PASSWORD**
+
+**H2O_API_KEY**
+
 Create a python environment by running the following commands (this is assuming Python is installed properly).
 
 For MacOS / Linux:
@@ -80,13 +89,7 @@ In another terminal, run server.py
 python server\server.py
 ```
 
-.env file needs to be in the server folder, containing:
-
-**RAG_DATABASE_USERNAME**
-
-**RAG_DATABASE_PASSWORD**
-
-**H2O_API_KEY**
+View the website in: http://localhost:3000/
 
 <a name="dependencies"></a>
 <p><h1 align="center"> Dependencies </h1></p>  
