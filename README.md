@@ -31,7 +31,7 @@ Intelli-Exam knows that educators are busy individuals, having to juggle many re
 
 <h2 align="center">
     <a href="https://pasteboard.co/O3hf9asyhEG0.jpg" target="blank_">
-        <img alt="Solution Architecture" src="https://gcdnb.pbrd.co/images/O3hf9asyhEG0.jpg?o=1" width="800" height="200" />
+        <img alt="Solution Architecture" src="https://gcdnb.pbrd.co/images/O3hf9asyhEG0.jpg?o=1" width="1000" height="450" />
     </a>
 </h2>
 
