@@ -1,5 +1,4 @@
 <p><h1 align="center"> 
-Intelli-Exam
 
 ![Intelli-Exam](https://gcdnb.pbrd.co/images/K5lQygPw4F84.png?o=1) 
 </h1></p>
