@@ -2,11 +2,16 @@ import React from "react";
 
 export default function InputFile(props) {
   return (
+    // button upload for files
+    // show uploaded file name & give option to delete uploaded file
     <div>
       <div class="file">
         <div>
-          {props.files.length === 0 && props.error.all && <span className="notice">*Required: File Input</span>}
+          {props.files.length === 0 && props.error.all && (
+            <span className="notice">*Required: File Input</span>
+          )}
           {props.files.length === 0 && <p>Supported file types: .pdf, .doc</p>}
+
           <label
             htmlFor="formFileMultiple"
             className={props.files.length === 0 ? "form-label" : "add"}
@@ -20,6 +25,7 @@ export default function InputFile(props) {
             onChange={props.upload}
             name="file"
           />
+
           <div>
             {props.files.map((file, index) => {
               return (
@@ -33,6 +39,7 @@ export default function InputFile(props) {
               );
             })}
           </div>
+
         </div>
       </div>
     </div>
