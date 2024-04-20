@@ -11,7 +11,11 @@
 
 Team Bloopers recognises the busy schedules of university educators. With Intelli-exam, we attempt to employ our proprietary RAG Pipeline, integrated with h2oGPTe's API to run their LLM model for generation of exam questions. 
 
-Question types include MCQs or open-ended, with educators having the flexibility to provide information or structure for question context and format, while ensuring they align with the syllabus.
+Question types include MCQs or open-ended, with educators having the flexibility to execute two query types:
+
+- **Sample Questions**: Useful in generating consistent exam question format throughout every semesters, without repeating questions
+
+- **Additional Context**: Useful in generating questions that rely on context, especially for courses that are continuously advancing in landscape
 
 
 ## Solution Architecture
