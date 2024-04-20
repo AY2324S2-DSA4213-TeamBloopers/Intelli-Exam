@@ -118,7 +118,7 @@
     function handleSubmit(event) {
       event.preventDefault();
       console.log(files)
-      if (opt && files.length != 0 && mcq && oe) {
+      if (opt && files.length !== 0 && mcq && oe) {
         setError((prev) => {
           return { ...prev, all: false };
         });
@@ -159,7 +159,7 @@
               Sorry, current module selection is not available
             </span>
           )}
-          
+
           <select className="btn btn-secondary dropdown-toggle" value={mod} onChange={handleModChange}>
             <option>--Choose Module--</option>
             <option>DSA4213</option>
