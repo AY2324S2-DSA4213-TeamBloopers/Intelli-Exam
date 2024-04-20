@@ -58,25 +58,20 @@ def get_questions():
                 oe_results = rag_pipeline.search_database_random(open_ended_count, module_code)
                 for oe_result in oe_results:
                     oe_content.append(oe_result["content"])
-                # oe_questions = qna_generation_model.generate_open_ended(context_list=oe_content, count=open_ended_count, question_style=texts[0])
                 oe_questions = qna_generation_model.generate_questions(contents=oe_content, num_qns=open_ended_count, open_ended=True, formatting=texts[0])
 
                 mcq_content = []
                 mcq_results = rag_pipeline.search_database_random(mcq_count, module_code)
                 for mcq_result in mcq_results:
                     mcq_content.append(mcq_result["content"])
-                # mcq_questions = qna_generation_model.generate_mcq(context_list=mcq_content, count=mcq_count, question_style=texts[0])
                 mcq_questions = qna_generation_model.generate_questions(contents=mcq_content, num_qns=mcq_count, mcq=True, formatting=texts[0])
 
             else:
                 contents = []
                 for text in texts:
                     first, second = rag_pipeline.search_database(text, module_code)
-                    # contents.append(text + first["content"])
                     contents.append(first["content"])
 
-                # oe_questions = qna_generation_model.generate_open_ended(context_list=contents, count=open_ended_count)
-                # mcq_questions = qna_generation_model.generate_mcq(context_list=contents, count=mcq_count)
                 oe_questions = qna_generation_model.generate_questions(contents=contents, num_qns=open_ended_count, open_ended=True, complimentary_info=texts)
                 mcq_questions = qna_generation_model.generate_questions(contents=contents, num_qns=mcq_count, mcq=True, complimentary_info=texts)
 
@@ -84,13 +79,13 @@ def get_questions():
 
         temp_folder_manager.remove_temp_folder()
 
-        return create_excel_file(questions)
+        return create_excel_file(questions, open_ended_count, mcq_count)
         
     except Exception as e:
         return "PDF cannot be read"
 
 
-def create_excel_file(questions):
+def create_excel_file(questions, open_ended_count, mcq_count):
     """
     Creates an excel file containing 7 columns (Question, Choice A, Choice B, Choice C, Choice D, Answer, Explanation).
 
@@ -108,19 +103,33 @@ def create_excel_file(questions):
     answers = []
     explanations = []
 
+    output_oe_count = 0
+    output_mcq_count = 0
+
     # Iterate over each JSON string to extract the problems, choices, answers and explanations
     for data in questions:
-        data = data.replace("\n", "").replace('\"', '"')
-        data = json.loads(data)
-        for qae in data["Output"]:
-            problems.append(qae["Question"])
-            answers.append(qae["Answer"])
-            explanations.append(qae["Explanation"])
-            choices = qae.get("Choices", None)
-            choice_a.append(choices["a"] if choices else None)
-            choice_b.append(choices["b"] if choices else None)
-            choice_c.append(choices["c"] if choices else None)
-            choice_d.append(choices["d"] if choices else None)
+            data = data.replace("\n", "").replace('\"', '"')
+            data = json.loads(data)
+            for qae in data["Output"]:
+                choices = qae.get("Choices", None)
+                if choices and output_mcq_count < mcq_count:
+                    choice_a.append(choices["a"])
+                    choice_b.append(choices["b"])
+                    choice_c.append(choices["c"])
+                    choice_d.append(choices["d"])
+                    problems.append(qae["Question"])
+                    answers.append(qae["Answer"])
+                    explanations.append(qae["Explanation"])
+                    output_mcq_count += 1
+                elif output_oe_count < open_ended_count:
+                    choice_a.append(None)
+                    choice_b.append(None)
+                    choice_c.append(None)
+                    choice_d.append(None)
+                    problems.append(qae["Question"])
+                    answers.append(qae["Answer"])
+                    explanations.append(qae["Explanation"])
+                    output_oe_count += 1
         
     
     # Creates a pandas DataFrame from the lists.
