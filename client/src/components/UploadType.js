@@ -14,8 +14,8 @@ export default function UploadType(props){
                 >
                     
                 <option value="">--Type Of Upload--</option>
-                <option value="sample">Sample Questions</option>
-                <option value="content">Context</option>
+                <option value="format">Sample Questions</option>
+                <option value="context">Context</option>
             </select>
             
         </div>

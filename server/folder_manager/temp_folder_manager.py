@@ -11,7 +11,7 @@ class TempFolderManager:
 
     def __init__(self):
         """
-        Initialize the TempFolderManager object.
+        Initialise the TempFolderManager object.
         """
         self.upload_folder = None
 
@@ -42,3 +42,4 @@ class TempFolderManager:
         if self.upload_folder:
             shutil.rmtree(self.upload_folder)
             self.upload_folder = None
+            
