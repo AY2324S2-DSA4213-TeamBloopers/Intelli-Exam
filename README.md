@@ -1,12 +1,12 @@
-<h1 align="center"> 
-  DSA4213 Team Bloopers: Intelli-exam
-</h1>
+# DSA4213 Team Bloopers: Intelli-Exam
+
 <h1 align="center"> 
   <img src="https://gcdnb.pbrd.co/images/bvAYmoZY6wph.gif" alt="drawing" width="200"/>
 </h1>
 
    
 ## Project Description
+
 Team Bloopers recognises the busy schedules of university educators. With Intelli-exam, we attempt to employ our proprietary RAG Pipeline, integrated with h2oGPTe's API to run their LLM model for questions generation. Question types include MCQs or open-ended, with educators having the flexibility to provide information or structure for question context and format, while ensuring they align with the syllabus.
 
 
