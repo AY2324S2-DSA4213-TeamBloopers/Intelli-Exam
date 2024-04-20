@@ -9,7 +9,7 @@ export default function App(){
     const bottomEl = React.useRef(null);
 
     const scrollToBottom = () => {
-        bottomEl?.current?.scrollIntoView({ behavior: 'smooth' });
+        bottomEl?.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
     };
 
     return(
