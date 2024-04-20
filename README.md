@@ -9,14 +9,16 @@
    
 ## Project Description
 
-Team Bloopers recognises the busy schedules of university educators. With Intelli-exam, we attempt to employ our proprietary RAG Pipeline, integrated with h2oGPTe's API to run their LLM model for questions generation. Question types include MCQs or open-ended, with educators having the flexibility to provide information or structure for question context and format, while ensuring they align with the syllabus.
+Team Bloopers recognises the busy schedules of university educators. With Intelli-exam, we attempt to employ our proprietary RAG Pipeline, integrated with h2oGPTe's API to run their LLM model for generation of exam questions. 
+
+Question types include MCQs or open-ended, with educators having the flexibility to provide information or structure for question context and format, while ensuring they align with the syllabus.
 
 
 ## Solution Architecture
 
 <h2 align="center">
-    <a href="https://gcdnb.pbrd.co/images/dXbtrepOslGg.gif" target="blank_">
-        <img alt="Solution Architecture" src="https://gcdnb.pbrd.co/images/dXbtrepOslGg.gif"/>
+    <a href="https://gcdnb.pbrd.co/images/WeNkKKwlXLpe.gif?o=1" target="blank_">
+        <img alt="Solution Architecture" src="https://gcdnb.pbrd.co/images/WeNkKKwlXLpe.gif?o=1"/>
     </a>
 </h2>
 
