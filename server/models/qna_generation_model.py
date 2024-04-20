@@ -1,6 +1,7 @@
 from h2ogpte import H2OGPTE
-import inflect 
 
+# Used to convert numbers to numerical words, in an attempt to improve prompting
+import inflect
 inflector = inflect.engine()
 
 class QNAGenerationModel:
@@ -26,16 +27,15 @@ class QNAGenerationModel:
             api_key=api_key,
         )
 
-        # Set up chat session
-        self.chat_session_id = self.client.create_chat_session_on_default_collection()
-
+        # Set up chat session, using non-collection chat session as we isolated the RAG pipeline away from h2oGPTe.
+        self.chat_session_id = self.client.create_chat_session()
 
     def generate(self, prompt, timeout = 70) :
         """
-        Generates an open-ended question using the prompt
+        Generates questions with the provided prompt.
 
         Args:
-        - prompt (str): LLM generates from the prompt
+        - prompt (str): Prompt used for QA generation
         - timeout (int, optional): How long it waits until timeout.
 
         Returns:
@@ -43,6 +43,8 @@ class QNAGenerationModel:
 
         """
         reply = None
+
+        # Repetitively retrieve output from h2oGPTe as it sometimes timeout
         while not reply:
             try:
                 with self.client.connect(self.chat_session_id) as session:
@@ -53,201 +55,76 @@ class QNAGenerationModel:
 
         return reply.content
 
-    def generate_open_ended(self, context_list, count, max_tokens_per_answer=50, question_style = None):
+    def generate_questions(self, contents, user_input, num_qns, open_ended=False, mcq=False, complimentary_info=False, formatting=False, max_tokens_per_answer=50):
         """
-        Generates open-ended questions for each context in the provided list.
+        Generates questions based on the provided contents and user input.
 
         Args:
-        - context_list (list of str): List of contextual data for generating questions.
-        - count (int): How many questions the model should generate.
-        - max_tokens_per_answer (int, optional): The maximum number of tokens allowed for each generated answer. Default is 50.
-        - question_style (string, optional): Prompts LLM to follow style of question.
+        - contents (list): List of content data.
+        - user_input (list): List of information to be used for context or formatting.
+        - num_qns (int): Total number of questions to generate.
+        - open_ended (bool, optional): Whether to generate open-ended questions (default: False).
+        - mcq (bool, optional): Whether to generate multiple choice questions (default: False).
+        - complimentary_info (bool, optional): Whether to include complimentary information (default: False).
+        - formatting (bool, optional): Whether to format the questions (default: False).
+        - max_tokens_per_answer (int, optional): Maximum number of tokens allowed per answer (default: 50).
+
+        Raises:
+        - TypeError: If both open_ended and mcq are set to True or neither of them are set to True.
 
         Returns:
-        - list of str: list of chunks of content as str in json format
+        - list: Generated questions in JSON format.
         """
-        # Generate prompts
-        prompt = f"You are an educator. Generate an open ended question for each context data with answers. Each answer should be less than {max_tokens_per_answer} words. There should be a short explanation given for the answer. \n"       
-        end = "You must strictly respond in JSON with the format like this {Output:[{Question: [Question], Answer: [Answer], Explanation: [Explanation]},{Question: [Question], Answer: [Answer], Explanation: [Explanation]}, ...]}" 
+        if open_ended and mcq:
+            raise TypeError("Only one of open_ended or mcq must be set as True for question generation.")
 
-        generates = len(context_list)
+        if not (open_ended or mcq):
+            raise TypeError("Either open_ended or mcq must be set as True for question generation.")
+        
+        if complimentary_info and formatting:
+            raise TypeError("Both complimentary info and formatting is set as True. Please only set one of the two.")
+        
+        if not (complimentary_info or formatting):
+            raise TypeError("Neither complimentary info and formatting is set as True. Please set one of the two for question generation.")
 
-        #Split questions equally to number of contexts
-        num_questions_list = [count // generates + (1 if x < count % generates else 0)  for x in range (generates)]
+        if open_ended:
+            scenario_prompt = "Generate open ended questions for each content data with answers.\n"
+            rules_prompt = f"Each answer should be less than {max_tokens_per_answer} words. There should be a short explanation given for the answer.\n"       
+            format_prompt = "You must strictly respond in JSON with the format like this {Output:[{Question: [Question], Answer: [Answer], Explanation: [Explanation]},{Question: [Question], Answer: [Answer], Explanation: [Explanation]}, ...]}" 
 
-        collated_replies = []
+        if mcq:
+            scenario_prompt = "Generate multiple choice questions for each content data with answers.\n"
+            rules_prompt = "Each Multiple Choice Question must have four choices. There should be a short explanation given for the answer.\n"
+            format_prompt = "You must strictly respond in JSON with the format like this {Output:[{Question:[Question], Choices:{a:[Answer1], b:[Answer2], c:[Answer3] d:[Answer4]}, Answer:[Answer] , Explanation:[Explanation]},{Question:[Question], Choices:{a:[Answer1], b:[Answer2], c:[Answer3] d:[Answer4]}, Answer:[Answer] , Explanation:[Explanation]} ...]}"
 
-        i = 0
 
-        for context in context_list:
-            num_questions = num_questions_list[i]
-            if num_questions > 0:
-                i += 1
-                context_prompt = prompt + self.generate_prompt_mcq(context, num_questions)
-                if (question_style):
-                    context_prompt += f"Please construct your question simlar to this style {question_style}"
-                context_prompt += end
-                collated_replies.append(self.generate(context_prompt, timeout = 90 + num_questions*20))
+        # This list is to equally split the number of questions to generate amongst the content chunks.
+        # E.g. if there are 5 chunks of content and 7 questions to generate, the calculated list will be [2, 2, 1, 1, 1]
+        num_content = len(contents)
+        num_qns_per_content = [num_qns // num_content + (1 if x < num_qns % num_content else 0)  for x in range (num_content)]
 
-        return collated_replies
+        generated_questions = []
+        for content, user_input, qn_count in zip(contents, user_input, num_qns_per_content):
+            # If the number of questions to generate is less than the number of content, then there will be unnecessary content.
+            if qn_count == 0:
+                break
 
-    def generate_mcq(self, context_list, count, question_style = None):
-        """
-        Generates MCQ questions for each context in the provided list.
+            if formatting:
+                relevant_prompt = self.create_formatting_prompt(content, user_input, qn_count)
+            if complimentary_info:
+                relevant_prompt = self.create_complimentary_info_prompt(content, user_input, qn_count)
 
-        Args:
-        - context_list (list of str): List of contextual data for generating questions.
-        - count (int): How many questions the model should generate.
-        - question_style (string, optional): Prompts LLM to follow style of question.
+            full_prompt = scenario_prompt + rules_prompt + relevant_prompt + format_prompt
+            generated_question = self.generate(full_prompt, timeout = 90 + qn_count*20)
+            generated_questions.append(generated_question)
 
-        Returns:
-        - list of str: list of chunks of content as str in json format
-        """
-        # Generate prompts
-        prompt = "You are an educator. Generate Multiple Choice Questions for each context data with answers. Each Multiple Choice Question should have four choices. There should be a short explanation given for the answer. \n"
-        end = "You must strictly respond in JSON with the format like this {Output:[{Question:[Question], Choices:{a:[Answer1], b:[Answer2], c:[Answer3] d:[Answer4]}, Answer:[Answer] , Explanation:[Explanation]},{Question:[Question], Choices:{a:[Answer1], b:[Answer2], c:[Answer3] d:[Answer4]}, Answer:[Answer] , Explanation:[Explanation]} ...]}"
+        return generated_questions
 
-        generates = len(context_list)
 
-        num_questions_list = [count // generates + (1 if x < count % generates else 0)  for x in range (generates)]
-
-        collated_replies = []
-
-        i = 0
-
-        for context in context_list:
-            num_questions = num_questions_list[i]
-            if num_questions > 0:
-                i += 1
-                context_prompt = prompt + self.generate_prompt_mcq(context, num_questions)
-                if (question_style):
-                    context_prompt += f"Please construct your question simlar to this style {question_style}"
-                context_prompt += end
-                collated_replies.append(self.generate(context_prompt, timeout= 70 + num_questions*10))
-
-        return collated_replies
-
-    def generate_mcq_new_context(self, context_list, out_of_scope_list, count, question_style = None):
-        """
-        Generates MCQ questions for each context in the provided list. Includes out of scope list.
-
-        Args:
-        - context_list (list of str): List of contextual data for generating questions.
-        - out_of_syllabus_list (list of str): List of contextual out of scope data that will be used to generate questions
-        - count (int): How many questions the model should generate.
-        - question_style (string, optional): Prompts LLM to follow style of question.
-
-        Returns:
-        - list of str: list of chunks of content as str in json format
-        """
-        # Generate prompts
-        prompt = "You are an educator. Generate Multiple Choice Questions for each context data with answers. Each Multiple Choice Question should have four choices. There should be a short explanation given for the answer. Can you generate questions related to out of scope data, but the question's content should be those that are in context?  \n"
-        end = "You must strictly respond in JSON with the format like this {Output:[{Question:[Question], Choices:{a:[Answer1], b:[Answer2], c:[Answer3] d:[Answer4]}, Answer:[Answer] , Explanation:[Explanation]},{Question:[Question], Choices:{a:[Answer1], b:[Answer2], c:[Answer3] d:[Answer4]}, Answer:[Answer] , Explanation:[Explanation]} ...]}"
-
-        generates = len(context_list)
-
-        num_questions_list = [count // generates + (1 if x < count % generates else 0)  for x in range (generates)]
-
-        collated_replies = []
-
-        i = 0
-
-        for context in context_list:
-            num_questions = num_questions_list[i]
-            out_of_scope_context = out_of_scope_list[i]
-            if num_questions > 0:
-                context_prompt = prompt + self.generate_prompt_mcq(context, num_questions, out_of_scope=out_of_scope_context)
-                if (question_style):
-                    context_prompt += f"Please construct your question simlar to this style {question_style}"
-                context_prompt += end
-                collated_replies.append(self.generate(context_prompt, timeout= 70 + num_questions*10))
-            i += 1
-
-        return collated_replies
-    
-    def generate_open_ended_new_context(self, context_list, out_of_scope_list, count, max_tokens_per_answer=50, question_style = None):
-        """
-        Generates open-ended questions for each context in the provided list. Includes out of scope list.
-
-        Args:
-        - context_list (list of str): List of contextual data for generating questions.
-        - out_of_scope_list (list of str): List of contextual out of scope data that will be used to generate questions
-        - count (int): How many questions the model should generate.
-        - max_tokens_per_answer (int, optional): The maximum number of tokens allowed for each generated answer. Default is 50.
-        - question_style (string, optional): Prompts LLM to follow style of question.
-
-        Returns:
-        - list of str: list of chunks of content as str in json format
-        """
-        # Generate prompts
-        prompt = f"You are an educator. Generate an open ended question for each context data with answers. Each answer should be less than {max_tokens_per_answer} words. There should be a short explanation given for the answer. Can you generate questions related to out of scope data, but the question's content should be those that are in context?\n"       
-        end = "You must strictly respond in JSON with the format like this {Output:[{Question: [Question], Answer: [Answer], Explanation: [Explanation]},{Question: [Question], Answer: [Answer], Explanation: [Explanation]}, ...]}" 
-
-        generates = len(context_list)
-
-        #Split questions equally to number of contexts
-        num_questions_list = [count // generates + (1 if x < count % generates else 0)  for x in range (generates)]
-
-        collated_replies = []
-
-        i = 0
-
-        for context in context_list:
-            num_questions = num_questions_list[i]
-            out_of_scope_context = out_of_scope_list[i]
-            if num_questions > 0:
-                
-                context_prompt = prompt + self.generate_prompt_mcq(context, num_questions, out_of_scope=out_of_scope_context)
-                if (question_style):
-                    context_prompt += f"Please construct your question simlar to this style {question_style}"
-                context_prompt += end
-                collated_replies.append(self.generate(context_prompt, timeout = 90 + num_questions*20))
-            i += 1
-
-        return collated_replies
-
-    def generate_prompt_oe(self, context, count, out_of_scope = None):
-        """
-        Generates a prompt for generating an open-ended question using the given context.
-
-        Args:
-        - prompt (str): The initial prompt for generating the question.
-        - context (str): The contextual data to be included in the prompt.
-        - count (int): The number of questions the ML should generate from this context.
-        - out_of_scope (string, optional): Out of scope data for prompt context.
-
-        Returns:
-        - str: The generated prompt for generating an open-ended question.
-        """
-
-        count = inflector.number_to_words(count)
-
-        prompt = f"Prompt: Give me strictly {count} open ended questions from the following context"
-        if (out_of_scope):
-            prompt += f"Out Of Scope: {out_of_scope}"
-        context = f"Contextual Data: {context}"
-
-        return(prompt + context)
-
-    def generate_prompt_mcq(self, context, count, out_of_scope = None):
-        """
-        Generates a prompt for generating an open-ended question using the given context.
-
-        Args:
-        - prompt (str): The initial prompt for generating the question.
-        - context (str): The contextual data to be included in the prompt.
-        - count (int): The number of questions the ML should generate from this context
-        - out_of_scope (string, optional): Out of scope data for prompt context.
-
-        Returns:
-        - str: The generated prompt for generating an open-ended question.
-        """
-
-        count = inflector.number_to_words(count)
-
-        prompt = f"Prompt: Give me strictly {count} multiple choice questions from following context"
-        if (out_of_scope):
-            prompt += f"Out Of Scope: {out_of_scope}"
-        context = f"Contextual Data: {context}"
-
-        return(prompt + context)
+    # Functions for prompt generation. Isolated to reduce clutter.
+    def create_complimentary_info_prompt(self, content, info, qn_count):
+        prompt = f"Generate exactly {inflector.number_to_words(qn_count)} questions. The questions must strictly be regarding the CONTENT and use the INFORMATION for context only.\n\nCONTENT: [\n{content}\n]\nINFORMATION: [\n{info}\n]\n\n"
+        return prompt
+    def create_formatting_prompt(self, content, format, qn_count):
+        prompt = f"Generate exactly {inflector.number_to_words(qn_count)} questions. The questions must be regarding the CONTENT and the structure of the question must follow the FORMAT of questions that can be identified within.\n\nCONTENT: [\n{content}\n]\nFORMAT: [\n{format}\n]\n\n"
+        return prompt
