@@ -19,10 +19,10 @@ Intelli-Exam knows that educators are busy individuals, having to juggle many re
 
 <div>
     <h1 align="center">Table of Contents</h1>
-    <table>
+    <table style="border: none; border-collapse: collapse;">
         <tr>
-            <td style="width: 50%;">
-                <ul>
+            <td style="width: 50%; padding: 0;">
+                <ul style="list-style-type: none; padding-left: 0; margin-top: -10px;">
                     <li><a href="#solution-architecture">Solution Architecture</a></li>
                     <li><a href="#tech-stack">Tech Stack</a></li>
                     <li><a href="#start-up">Getting Started</a></li>
@@ -31,9 +31,9 @@ Intelli-Exam knows that educators are busy individuals, having to juggle many re
                     <li><a href="#credits">Credits</a></li>
                 </ul>
             </td>
-            <td style="width: 50%;">
+            <td style="width: 50%; padding: 0;">
                 <a href="https://cdn.dribbble.com/users/337865/screenshots/3209990/book-loader_v1.4_transp_800x600.gif" target="_blank">
-                    <img alt="Solution Architecture" src="https://cdn.dribbble.com/users/337865/screenshots/3209990/book-loader_v1.4_transp_800x600.gif" width="300" height="250" />
+                    <img alt="Solution Architecture" src="https://cdn.dribbble.com/users/337865/screenshots/3209990/book-loader_v1.4_transp_800x600.gif" width="300" height="250" style="display: block; margin: 0 auto;" />
                 </a>
             </td>
         </tr>
@@ -52,9 +52,9 @@ Intelli-Exam knows that educators are busy individuals, having to juggle many re
 <a name="tech-stack"></a>
 <p><h1 align="center"> Tech Stack </h1></p>  
 
-<table>
+<table style="border: none; border-collapse: collapse;">
     <tr>
-        <td>
+        <td style="width: 50%; padding: 0;">
             <ul>
                 <li><strong>React</strong><br>Frontend library for building interactive UI components.</li>
                 <li><strong>Python</strong><br>Backend language utilized for server-side logic, data processing, API development, and building the pipeline.</li>
@@ -63,7 +63,7 @@ Intelli-Exam knows that educators are busy individuals, having to juggle many re
                 <li><strong>H2OGPTE</strong><br>H2OGPTE, developed by H2O.ai, provides the large language model used in this project via API calls.</li>
             </ul>
         </td>
-        <td>
+        <td style="width: 50%; padding: 0;">
             <div style="display: flex; align-items: center;">
                 <img alt="Solution Architecture" src="https://i.pinimg.com/originals/e1/f6/60/e1f660eef59d0ea6e12a97512bc3eb04.gif" width="300" height="250" />
             </div>
@@ -136,9 +136,9 @@ Finally, press submit and the questions will be sent over in excel format.
 
 <a name="credits"></a>
 <p><h1 align="center"> Credits </h1></p>  
-<table>
+<table style="border: none; border-collapse: collapse;">
     <tr>
-        <td>
+        <td style="width: 50%; padding: 0;">
             <table>
                 <tr>
                     <th>No.</th>
@@ -167,7 +167,7 @@ Finally, press submit and the questions will be sent over in excel format.
                 </tr>
             </table>
         </td>
-        <td>
+        <td style="width: 50%; padding: 0;">
             <a href="https://lordicon.com/icons/wired/lineal/957-team-work.gif" target="_blank">
                 <img alt="Solution Architecture" src="https://lordicon.com/icons/wired/lineal/957-team-work.gif" width="300" height="300" />
             </a>
