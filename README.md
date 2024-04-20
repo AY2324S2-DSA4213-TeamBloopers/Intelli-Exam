@@ -28,7 +28,7 @@ Team Bloopers recognises the busy schedules of university educators. With Intell
 
 ## File Structure
 
-```sh
+```bash
 - Intelli-Exam/
   ├── client/
   |   ├── src
