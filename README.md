@@ -5,15 +5,8 @@
   <img src="https://gcdnb.pbrd.co/images/bvAYmoZY6wph.gif" alt="drawing" width="200"/>
 </h1>
 
-<h2 align="center">
-
-  *Hassle-free questions generation for NUS educators*
-    
-</h2>
-
    
 ## Project Description
-
 Team Bloopers recognises the busy schedules of university educators. With Intelli-exam, we attempt to employ our proprietary RAG Pipeline, integrated with h2oGPTe's API to run their LLM model for questions generation. Question types include MCQs or open-ended, with educators having the flexibility to provide information or structure for question context and format, while ensuring they align with the syllabus.
 
 
