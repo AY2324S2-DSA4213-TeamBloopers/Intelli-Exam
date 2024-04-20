@@ -2,7 +2,7 @@
 
 <h2 align="center"> 
   <img src="https://gcdnb.pbrd.co/images/bvAYmoZY6wph.gif" alt="drawing" width="200"/>
-  
+  <br>
   <center>Hassle-free questions generation for NUS educators</center>
 </h2>
 
