@@ -8,9 +8,7 @@
 </h2>
 
 <div>
-Intelli-Exam knows that educators are busy individuals, having to juggle many responsibilities. Furthermore, they are unable to resuse old exam questions as students normally seek them out for practice.
-
-Intelli-Exam provides a solution implementing RAG and LLMs to generate questions. The model generates MCQs and Open-Ended questions, and allows equcators to provide complimentary information to switch up the questions whilst still focusing on the syllabus.
+Intelli-Exam knows that educators are busy individuals, having to juggle many responsibilities. Furthermore, they are unable to resuse old exam questions as students normally seek them out for practice. The app provides a solution implementing RAG and LLMs to generate questions. The model generates MCQs and Open-Ended questions, and allows equcators to provide complimentary information to switch up the questions whilst still focusing on the syllabus.
 </div>
 
 <p><h1 align="center"> Table of Contents </h1></p>
@@ -22,7 +20,8 @@ Intelli-Exam provides a solution implementing RAG and LLMs to generate questions
  5) [User Guide](#user-guide)
  6) [Credits](#credits)
 
-<p><h1 align="center"> Solution Architecture </h1></p>  <a name="solution-architecture"></a>
+<a name="solution-architecture"></a>
+<p><h1 align="center"> Solution Architecture </h1></p>  
 
 <h2 align="center">
     <a href="https://pasteboard.co/O3hf9asyhEG0.jpg" target="blank_">
@@ -30,7 +29,8 @@ Intelli-Exam provides a solution implementing RAG and LLMs to generate questions
     </a>
 </h2>
 
-<p><h1 align="center"> Tech Stack </h1></p>  <a name="tech-stack"></a>
+<a name="tech-stack"></a>
+<p><h1 align="center"> Tech Stack </h1></p>  
 
 1. **React**
     - Frontend library for building interactive UI components
@@ -43,7 +43,8 @@ Intelli-Exam provides a solution implementing RAG and LLMs to generate questions
 5. **H2OGPTE**
     - H2OGPTE, developed by H2O.ai, provides the large language model used in this project via API calls.
 
-<p><h1 align="center"> Getting Started </h1></p>  <a name="start-up"></a>
+<a name="start-up"></a>
+<p><h1 align="center"> Getting Started </h1></p>  
 Create a python environment by running the following commands (this is assuming Python is installed properly).
 
 For MacOS / Linux:
@@ -81,13 +82,14 @@ python server\server.py
 
 **H2O_API_KEY**
 
-<p><h1 align="center"> Dependencies </h1></p>  <a name="dependencies"></a>
+<a name="dependencies"></a>
+<p><h1 align="center"> Dependencies </h1></p>  
 
 1) Python 3.9.6
 2) NPM 10.5.0
 
-
-<p><h1 align="center"> User Guide </h1></p>  <a name="user-guide"></a>
+<a name="user-guide"></a>
+<p><h1 align="center"> User Guide </h1></p>  
 
 Intelli-Exam should already have all the required information from the syllabus uploaded. If you can find the NUS module from the "NUS Module" drop down selector, you can generate questions from the module.
 
@@ -100,7 +102,8 @@ You can select the number of MCQ and Open ended questions you want to generate, 
 
 Finally, press submit and the questions will be sent over in excel format.
 
-<p><h1 align="center"> Credits </h1></p>  <a name="credits"></a>
+<a name="credits"></a>
+<p><h1 align="center"> Credits </h1></p>  
 <div>
  <table>
   <tr>
