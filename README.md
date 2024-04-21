@@ -21,9 +21,9 @@ Question types include MCQs or open-ended, with educators having the flexibility
 ## Solution Architecture
 
 <h2 align="center">
-    <a href="https://gcdnb.pbrd.co/images/WeNkKKwlXLpe.gif?o=1" target="blank_">
-        <img alt="Solution Architecture" src="https://gcdnb.pbrd.co/images/WeNkKKwlXLpe.gif?o=1"/>
-    </a>
+  <a href="https://gcdnb.pbrd.co/images/WeNkKKwlXLpe.gif?o=1" target="blank_">
+    <img alt="Solution Architecture" src="https://gcdnb.pbrd.co/images/WeNkKKwlXLpe.gif?o=1"/>
+  </a>
 </h2>
 
 
@@ -73,47 +73,47 @@ Question types include MCQs or open-ended, with educators having the flexibility
 
 2. Clone the repository:
 
-  ```bash
-  git clone https://github.com/AY2324S2-DSA4213-TeamBloopers/Intelli-Exam.git
-  cd Intelli-Exam
-  ```
+    ```bash
+    git clone https://github.com/AY2324S2-DSA4213-TeamBloopers/Intelli-Exam.git
+    cd Intelli-Exam
+    ```
 
 3. Install React dependencies:
 
-  ```bash
-  cd client
-  npm install
-  ```
+    ```bash
+    cd client
+    npm install
+    ```
 
 4. Install Python dependencies in a virtual environment:
 
-  For MacOS/Linux:
-  ```bash
-  cd ../server
-  python3 -m venv venv
-  source venv/bin/activate
-  pip install -r requirements.txt
-  ```
+    For MacOS/Linux:
+    ```bash
+    cd ../server
+    python3 -m venv venv
+    source venv/bin/activate
+    pip install -r requirements.txt
+    ```
 
-  For Windows
-  ```bash
-  cd ../server
-  python3 -m venv venv
-  venv/Scripts/activate
-  pip install -r requirements.txt
-  ```
+    For Windows
+    ```bash
+    cd ../server
+    python3 -m venv venv
+    venv/Scripts/activate
+    pip install -r requirements.txt
+    ```
 
 5. In the same terminal, run the server:
-  ```bash
-  python3 server.py
-  ```
+    ```bash
+    python3 server.py
+    ```
 
 6. Without closing the current terminal, create a new terminal and start the react instance:
-  ```bash 
-  cd client
-  npm start
-  ```
-
+    ```bash 
+    cd client
+    npm start
+    ```
+    
 The website is then run at: http://localhost:3000/
 
 
@@ -134,6 +134,13 @@ Upload the files by presing "Browse files". Take note that the Intelli-Exam curr
 You can select the number of MCQ and open-ended questions you want to generate, between 0 to 20.
 
 Finally, press submit and wait for the excel file to download on your browser!
+
+
+## Current Limitations
+
+- Due to copyright issues, we currently only support content and question generation for DSA4213. Addition course codes in the dropdown are meant to be placeholders, selecting them for generation will execute for DSA4213.
+
+- Due to our batching strategy when generating question and answers pair, do expect to wait for a few minutes generating beyond tens of questions.
 
 
 ## Contributors 
