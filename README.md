@@ -136,6 +136,13 @@ You can select the number of MCQ and open-ended questions you want to generate, 
 Finally, press submit and wait for the excel file to download on your browser!
 
 
+## Current Limitations
+
+- Due to copyright issues, we currently only support content and question generation for DSA4213. Addition course codes in the dropdown are meant to be placeholders, selecting them for generation will execute for DSA4213.
+
+- Due to our batching strategy when generating question and answers pair, do expect to wait for a few minutes generating beyond tens of questions.
+
+
 ## Contributors 
 <div>
  <table>
