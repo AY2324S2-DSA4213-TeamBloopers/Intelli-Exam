@@ -18,6 +18,11 @@ Question types include MCQs or open-ended, with educators having the flexibility
 - **Additional Context**: Useful in generating questions that rely on context, especially for courses that are continuously advancing in landscape
 
 
+## Vectorised Database
+
+Our vectorised database stores syllabus content from NUS courses. With our RAG pipeline, we minimise the chances of the LLM hallucinating with inaccurate information, while at the same time ensuring questions generated stay within the syllabus of the courses.
+
+
 ## Solution Architecture
 
 <h2 align="center">
