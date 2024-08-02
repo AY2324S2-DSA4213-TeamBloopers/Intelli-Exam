@@ -124,11 +124,7 @@ The website is then run at: http://localhost:3000/
 
 ## User Guide
 
-![Homepage](https://gcdnb.pbrd.co/images/t8pXukC84AQV.png?o=1)
-
 Intelli-Exam should already have all the required content within the syllabus uploaded in its database. If you can find the NUS module from the "NUS Module" drop down selector, you can generate questions from the module.
-
-![Upload Page](https://gcdnb.pbrd.co/images/cYyMBzxIWFbt.png?o=1)
 
 Under "Type Of Upload", select the type of documents that are going to be used. It can either be sample questions or context. For sample questions, the questions generated will attempt to follow the style of questions in the file. 
 For context, the questions generated will attempt to form questions using the complimentary information provided whilst still focusing on the syllabus.
