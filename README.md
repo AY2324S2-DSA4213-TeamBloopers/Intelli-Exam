@@ -1,12 +1,6 @@
 # DSA4213 Team Bloopers: Intelli-Exam
+Hassle-free questions generation for NUS educators
 
-<h2 align="center"> 
-  <img src="https://gcdnb.pbrd.co/images/bvAYmoZY6wph.gif" alt="drawing" width="200"/>
-  <br>
-  <center>Hassle-free questions generation for NUS educators</center>
-</h2>
-
-   
 ## Project Description
 
 Team Bloopers recognises the busy schedules of university educators. With Intelli-exam, we attempt to employ our proprietary RAG Pipeline, integrated with h2oGPTe's API to run their LLM model for generation of exam questions. 
@@ -21,16 +15,6 @@ Question types include MCQs or open-ended, with educators having the flexibility
 ## Vectorised Database
 
 Our vectorised database stores syllabus content from NUS courses. With our RAG pipeline, we minimise the chances of the LLM hallucinating with inaccurate information, while at the same time ensuring questions generated stay within the syllabus of the courses.
-
-
-## Solution Architecture
-
-<h2 align="center">
-  <a href="https://gcdnb.pbrd.co/images/WeNkKKwlXLpe.gif?o=1" target="blank_">
-    <img alt="Solution Architecture" src="https://gcdnb.pbrd.co/images/WeNkKKwlXLpe.gif?o=1"/>
-  </a>
-</h2>
-
 
 ## File Structure
 
